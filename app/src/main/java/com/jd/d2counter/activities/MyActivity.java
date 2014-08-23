@@ -1,7 +1,10 @@
 package com.jd.d2counter.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jd.d2counter.R;
@@ -12,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyActivity extends ActionBarActivity {
+public class MyActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
     private ViewHolder mHolder;
     private HeroListAdapter mTeamBanAdapter;
@@ -25,7 +28,7 @@ public class MyActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().hide();
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_my);
 
         mHolder = new ViewHolder();
@@ -58,6 +61,18 @@ public class MyActivity extends ActionBarActivity {
         mHolder.suggestBanList.setAdapter(mTeamPickAdapter);
         mHolder.enemyBanList.setAdapter(mTeamBanAdapter);
 
+        mHolder.teamBanList.setOnItemClickListener(this);
+        mHolder.teamPickList.setOnItemClickListener(this);
+        mHolder.enemyBanList.setOnItemClickListener(this);
+        mHolder.enemyPickList.setOnItemClickListener(this);
+        mHolder.suggestBanList.setOnItemClickListener(this);
+        mHolder.suggestPickList.setOnItemClickListener(this);
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        startActivity(new Intent(this, HeroSelectActivity.class));
     }
 
     private static class ViewHolder {
