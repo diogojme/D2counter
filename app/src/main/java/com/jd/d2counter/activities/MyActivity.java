@@ -42,6 +42,12 @@ public class MyActivity extends ActionBarActivity {
         heroList.add(new Hero(0, "Abadom", "STR"));
         heroList.add(new Hero(0, "Abadom", "STR"));
         heroList.add(new Hero(0, "Abadom", "STR"));
+        heroList.add(new Hero(0, "Abadom", "STR"));
+        heroList.add(new Hero(0, "Abadom", "STR"));
+        heroList.add(new Hero(0, "Abadom", "STR"));
+        heroList.add(new Hero(0, "Abadom", "STR"));
+        heroList.add(new Hero(0, "Abadom", "STR"));
+
 
         mTeamBanAdapter = new HeroListAdapter(this, heroList, false);
         mTeamPickAdapter = new HeroListAdapter(this, heroList, true);
