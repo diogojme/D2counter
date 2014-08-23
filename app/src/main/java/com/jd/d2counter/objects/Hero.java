@@ -7,8 +7,10 @@ public class Hero {
     private String name;
     private String type;
 
-    public Hero(){
-
+    public Hero(long id, String name, String type){
+        this.id = id;
+        this.name = name;
+        this.type = type;
     }
 
     public long getId() {

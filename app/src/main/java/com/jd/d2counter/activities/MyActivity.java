@@ -5,11 +5,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.widget.ListView;
 
 import com.jd.d2counter.R;
+import com.jd.d2counter.adapter.HeroListAdapter;
+import com.jd.d2counter.objects.Hero;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MyActivity extends ActionBarActivity {
 
     private ViewHolder mHolder;
+    private HeroListAdapter mTeamBanAdapter;
+    private HeroListAdapter mTeamPickAdapter;
+    private HeroListAdapter mSuggestPickAdapter;
+    private HeroListAdapter mEnemyPickAdapter;
+    private HeroListAdapter mSuggestBanAdapter;
+    private HeroListAdapter mEnemyBanAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +36,21 @@ public class MyActivity extends ActionBarActivity {
         mHolder.suggestBanList = (ListView) findViewById(R.id.main_suggest_ban);
         mHolder.suggestPickList = (ListView) findViewById(R.id.main_suggest_pick);
 
+        List<Hero> heroList = new ArrayList<Hero>();
+        heroList.add(new Hero(0, "Abadom", "STR"));
+        heroList.add(new Hero(0, "Abadom", "STR"));
+        heroList.add(new Hero(0, "Abadom", "STR"));
+        heroList.add(new Hero(0, "Abadom", "STR"));
+        heroList.add(new Hero(0, "Abadom", "STR"));
+
+        mTeamBanAdapter = new HeroListAdapter(this, heroList, false);
+        mTeamPickAdapter = new HeroListAdapter(this, heroList, true);
+        mHolder.teamBanList.setAdapter(mTeamBanAdapter);
+        mHolder.teamPickList.setAdapter(mTeamPickAdapter);
+        mHolder.suggestPickList.setAdapter(mTeamPickAdapter);
+        mHolder.enemyPickList.setAdapter(mTeamPickAdapter);
+        mHolder.suggestBanList.setAdapter(mTeamPickAdapter);
+        mHolder.enemyBanList.setAdapter(mTeamBanAdapter);
 
     }
 
