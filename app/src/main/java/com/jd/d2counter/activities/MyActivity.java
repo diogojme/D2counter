@@ -1,7 +1,9 @@
-package com.jd.d2counter;
+package com.jd.d2counter.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+
+import com.jd.d2counter.R;
 
 
 public class MyActivity extends ActionBarActivity {
