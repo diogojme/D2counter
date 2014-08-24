@@ -56,9 +56,9 @@ public class MyActivity extends ActionBarActivity implements AdapterView.OnItemC
         mTeamPickAdapter = new HeroListAdapter(this, heroList, true);
         mHolder.teamBanList.setAdapter(mTeamBanAdapter);
         mHolder.teamPickList.setAdapter(mTeamPickAdapter);
-        mHolder.suggestPickList.setAdapter(mTeamPickAdapter);
+        mHolder.suggestPickList.setAdapter(mTeamBanAdapter);
         mHolder.enemyPickList.setAdapter(mTeamPickAdapter);
-        mHolder.suggestBanList.setAdapter(mTeamPickAdapter);
+        mHolder.suggestBanList.setAdapter(mTeamBanAdapter);
         mHolder.enemyBanList.setAdapter(mTeamBanAdapter);
 
         mHolder.teamBanList.setOnItemClickListener(this);
