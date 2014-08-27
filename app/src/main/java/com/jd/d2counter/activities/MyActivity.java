@@ -32,41 +32,41 @@ public class MyActivity extends ActionBarActivity implements AdapterView.OnItemC
         setContentView(R.layout.activity_my);
 
         mHolder = new ViewHolder();
-        mHolder.teamBanList = (ListView) findViewById(R.id.main_team_ban);
-        mHolder.teamPickList = (ListView) findViewById(R.id.main_team_pick);
-        mHolder.enemyBanList = (ListView) findViewById(R.id.main_enemy_ban);
-        mHolder.enemyPickList = (ListView) findViewById(R.id.main_enemy_pick);
-        mHolder.suggestBanList = (ListView) findViewById(R.id.main_suggest_ban);
-        mHolder.suggestPickList = (ListView) findViewById(R.id.main_suggest_pick);
+//        mHolder.teamBanList = (ListView) findViewById(R.id.main_team_ban);
+//        mHolder.teamPickList = (ListView) findViewById(R.id.main_team_pick);
+//        mHolder.enemyBanList = (ListView) findViewById(R.id.main_enemy_ban);
+//        mHolder.enemyPickList = (ListView) findViewById(R.id.main_enemy_pick);
+//        mHolder.suggestBanList = (ListView) findViewById(R.id.main_suggest_ban);
+//        mHolder.suggestPickList = (ListView) findViewById(R.id.main_suggest_pick);
 
-        List<Hero> heroList = new ArrayList<Hero>();
-        heroList.add(new Hero(0, "Abadom", "STR"));
-        heroList.add(new Hero(0, "Abadom", "STR"));
-        heroList.add(new Hero(0, "Abadom", "STR"));
-        heroList.add(new Hero(0, "Abadom", "STR"));
-        heroList.add(new Hero(0, "Abadom", "STR"));
-        heroList.add(new Hero(0, "Abadom", "STR"));
-        heroList.add(new Hero(0, "Abadom", "STR"));
-        heroList.add(new Hero(0, "Abadom", "STR"));
-        heroList.add(new Hero(0, "Abadom", "STR"));
-        heroList.add(new Hero(0, "Abadom", "STR"));
+//        List<Hero> heroList = new ArrayList<Hero>();
+//        heroList.add(new Hero(0, "Abadom", "STR"));
+//        heroList.add(new Hero(0, "Abadom", "STR"));
+//        heroList.add(new Hero(0, "Abadom", "STR"));
+//        heroList.add(new Hero(0, "Abadom", "STR"));
+//        heroList.add(new Hero(0, "Abadom", "STR"));
+//        heroList.add(new Hero(0, "Abadom", "STR"));
+//        heroList.add(new Hero(0, "Abadom", "STR"));
+//        heroList.add(new Hero(0, "Abadom", "STR"));
+//        heroList.add(new Hero(0, "Abadom", "STR"));
+//        heroList.add(new Hero(0, "Abadom", "STR"));
 
 
-        mTeamBanAdapter = new HeroListAdapter(this, heroList, false);
-        mTeamPickAdapter = new HeroListAdapter(this, heroList, true);
-        mHolder.teamBanList.setAdapter(mTeamBanAdapter);
-        mHolder.teamPickList.setAdapter(mTeamPickAdapter);
-        mHolder.suggestPickList.setAdapter(mTeamBanAdapter);
-        mHolder.enemyPickList.setAdapter(mTeamPickAdapter);
-        mHolder.suggestBanList.setAdapter(mTeamBanAdapter);
-        mHolder.enemyBanList.setAdapter(mTeamBanAdapter);
-
-        mHolder.teamBanList.setOnItemClickListener(this);
-        mHolder.teamPickList.setOnItemClickListener(this);
-        mHolder.enemyBanList.setOnItemClickListener(this);
-        mHolder.enemyPickList.setOnItemClickListener(this);
-        mHolder.suggestBanList.setOnItemClickListener(this);
-        mHolder.suggestPickList.setOnItemClickListener(this);
+//        mTeamBanAdapter = new HeroListAdapter(this, heroList, false);
+//        mTeamPickAdapter = new HeroListAdapter(this, heroList, true);
+//        mHolder.teamBanList.setAdapter(mTeamBanAdapter);
+//        mHolder.teamPickList.setAdapter(mTeamPickAdapter);
+//        mHolder.suggestPickList.setAdapter(mTeamBanAdapter);
+//        mHolder.enemyPickList.setAdapter(mTeamPickAdapter);
+//        mHolder.suggestBanList.setAdapter(mTeamBanAdapter);
+//        mHolder.enemyBanList.setAdapter(mTeamBanAdapter);
+//
+//        mHolder.teamBanList.setOnItemClickListener(this);
+//        mHolder.teamPickList.setOnItemClickListener(this);
+//        mHolder.enemyBanList.setOnItemClickListener(this);
+//        mHolder.enemyPickList.setOnItemClickListener(this);
+//        mHolder.suggestBanList.setOnItemClickListener(this);
+//        mHolder.suggestPickList.setOnItemClickListener(this);
 
     }
 

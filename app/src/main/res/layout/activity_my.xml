@@ -19,7 +19,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -30,18 +30,73 @@
                     android:text="Suggest Pick"
                     android:textColor="@android:color/white"/>
 
-                <ListView
-                    android:id="@+id/main_suggest_pick"
-                    android:layout_width="fill_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"/>
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Chance Win"
+                    android:textColor="@android:color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="56%"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"/>
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -52,12 +107,42 @@
                     android:text="Suggest Ban"
                     android:textColor="@android:color/white"/>
 
-                <ListView
-                    android:id="@+id/main_suggest_ban"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
-                    android:rotation="270"/>
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -72,6 +157,7 @@
                 android:id="@+id/content_team_ban"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
 
@@ -81,11 +167,44 @@
                     android:text="Team Ban"
                     android:textColor="@android:color/white"/>
 
-                <ListView
-                    android:id="@+id/main_team_ban"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -94,6 +213,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="4dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -103,11 +223,44 @@
                     android:text="Enemy Ban"
                     android:textColor="@android:color/white"/>
 
-                <ListView
-                    android:id="@+id/main_enemy_ban"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/abaddon_vert"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -133,12 +286,44 @@
                         android:text="Team Pick"
                         android:textColor="@android:color/white"/>
 
-                    <ListView
-                        android:id="@+id/main_team_pick"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
-                        android:rotation="270"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal">
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/abaddon_vert"/>
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/abaddon_vert"/>
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/abaddon_vert"/>
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/abaddon_vert"/>
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/abaddon_vert"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -156,12 +341,44 @@
                         android:text="Enemy Pick"
                         android:textColor="@android:color/white"/>
 
-                    <ListView
-                        android:id="@+id/main_enemy_pick"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
-                        android:rotation="270"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal">
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/abaddon_vert"/>
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/abaddon_vert"/>
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/abaddon_vert"/>
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/abaddon_vert"/>
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/abaddon_vert"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
