@@ -27,33 +27,40 @@ public class AgilityFragment extends Fragment {
 
     private void initData() {
         list = new ArrayList<Integer>();
-        list.add(R.drawable.abaddon_vert);
-        list.add(R.drawable.alchemist_vert);
-        list.add(R.drawable.ancient_apparition_vert);
 
-        list.add(R.drawable.ancient_apparition_vert);
         list.add(R.drawable.antimage_vert);
-        list.add(R.drawable.axe_vert);
-        list.add(R.drawable.batrider_vert);
-        list.add(R.drawable.beastmaster_vert);
         list.add(R.drawable.bloodseeker_vert);
-        list.add(R.drawable.clinkz_vert);
-        list.add(R.drawable.doom_bringer_vert);
-        list.add(R.drawable.bristleback_vert);
-        list.add(R.drawable.ancient_apparition_vert);
-        list.add(R.drawable.earth_spirit_vert);
+        list.add(R.drawable.bounty_hunter_vert);
         list.add(R.drawable.broodmother_vert);
-        list.add(R.drawable.chaos_knight_vert);
-        list.add(R.drawable.earthshaker_vert);
+        list.add(R.drawable.clinkz_vert);
         list.add(R.drawable.drow_ranger_vert);
-        list.add(R.drawable.drow_ranger_vert);
-        list.add(R.drawable.furion_vert);
-        list.add(R.drawable.enigma_vert);
-        list.add(R.drawable.earth_spirit_vert);
-        list.add(R.drawable.doom_bringer_vert);
-        list.add(R.drawable.bane_vert);
-        list.add(R.drawable.keeper_of_the_light_vert);
-        list.add(R.drawable.lich_vert);
+        list.add(R.drawable.faceless_void_vert);
+        list.add(R.drawable.gyrocopter_vert);
+        list.add(R.drawable.juggernaut_vert);
+        list.add(R.drawable.lone_druid_vert);
+        list.add(R.drawable.luna_vert);
+        list.add(R.drawable.medusa_vert);
+        list.add(R.drawable.meepo_vert);
+        list.add(R.drawable.mirana_vert);
+        list.add(R.drawable.morphling_vert);
+        list.add(R.drawable.naga_siren_vert);
+        list.add(R.drawable.nevermore_vert);
+        list.add(R.drawable.nyx_assassin_vert);
+        list.add(R.drawable.phantom_assassin_vert);
+        list.add(R.drawable.phantom_lancer_vert);
+        list.add(R.drawable.razor_vert);
+        list.add(R.drawable.riki_vert);
+        list.add(R.drawable.slark_vert);
+        list.add(R.drawable.sniper_vert);
+        list.add(R.drawable.spectre_vert);
+        list.add(R.drawable.templar_assassin_vert);
+        list.add(R.drawable.terrorblade_vert);
+        list.add(R.drawable.troll_warlord_vert);
+        list.add(R.drawable.ursa_vert);
+        list.add(R.drawable.vengefulspirit_vert);
+        list.add(R.drawable.venomancer_vert);
+        list.add(R.drawable.viper_vert);
+        list.add(R.drawable.weaver_vert);
     }
 
     private void initView(View view) {
