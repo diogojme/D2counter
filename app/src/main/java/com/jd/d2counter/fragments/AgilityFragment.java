@@ -1,5 +1,6 @@
 package com.jd.d2counter.fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,12 +17,15 @@ import java.util.List;
 
 public class AgilityFragment extends Fragment {
     List<Integer> list;
+    ViewHolder mHolder;
+    HeroSelectAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_agility, container, false);
         initData();
         initView(view);
+        initAdapter();
         return view;
     }
 
@@ -64,13 +68,43 @@ public class AgilityFragment extends Fragment {
     }
 
     private void initView(View view) {
-        ViewHolder holder = new ViewHolder();
-        holder.grid = (GridView) view.findViewById(R.id.agility_grid);
-        HeroSelectAdapter adapter = new HeroSelectAdapter(getActivity(), list);
-        holder.grid.setAdapter(adapter);
+        mHolder = new ViewHolder();
+        mHolder.loading = view.findViewById(R.id.loading);
+        mHolder.grid = (GridView) view.findViewById(R.id.agility_grid);
+    }
+
+    private void initAdapter(){
+        new DataTask().execute();
+    }
+
+    private class DataTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            setLoading(true);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mAdapter = new HeroSelectAdapter(getActivity(), list);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mHolder.grid.setAdapter(mAdapter);
+            setLoading(false);
+        }
+    }
+
+    private void setLoading(boolean loading) {
+        mHolder.loading.setVisibility(loading ? View.VISIBLE : View.INVISIBLE);
     }
 
     private static class ViewHolder {
         GridView grid;
+        View loading;
     }
 }

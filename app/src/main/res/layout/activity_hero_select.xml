@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/quantum">
 
-    <com.astuetz.PagerSlidingTabStrip
+    <com.jd.d2counter.utils.TabAndroid
         android:id="@+id/hero_select_tabs"
         android:layout_width="match_parent"
-        android:layout_height="48dip" />
+        android:layout_height="48dp"
+        android:background="@color/quantum_dark"
+        app:pstsShouldExpand="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/shadow"
+        android:layout_below="@+id/hero_select_tabs" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/hero_select_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/hero_select_tabs" />
+
+</RelativeLayout>

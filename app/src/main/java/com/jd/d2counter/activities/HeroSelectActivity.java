@@ -8,7 +8,8 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.jd.d2counter.R;
 import com.jd.d2counter.adapter.HeroSelectPagerAdapter;
 
-public class HeroSelectActivity extends ActionBarActivity {
+public class HeroSelectActivity extends ActionBarActivity{
+    private ViewHolder mHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +20,11 @@ public class HeroSelectActivity extends ActionBarActivity {
     private void initView() {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_hero_select);
-        ViewHolder holder = new ViewHolder();
-        holder.pager = (ViewPager) findViewById(R.id.hero_select_pager);
-        holder.tabs = (PagerSlidingTabStrip) findViewById(R.id.hero_select_tabs);
-        holder.pager.setAdapter(new HeroSelectPagerAdapter(this.getSupportFragmentManager()));
-        holder.tabs.setViewPager(holder.pager);
+        mHolder = new ViewHolder();
+        mHolder.pager = (ViewPager) findViewById(R.id.hero_select_pager);
+        mHolder.tabs = (PagerSlidingTabStrip) findViewById(R.id.hero_select_tabs);
+        mHolder.pager.setAdapter(new HeroSelectPagerAdapter(this.getSupportFragmentManager()));
+        mHolder.tabs.setViewPager(mHolder.pager);
     }
 
     private static class ViewHolder {
