@@ -16,13 +16,13 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@drawable/shadow"
-        android:layout_below="@+id/hero_select_tabs" />
+        android:background="@anim/shadow"
+        android:layout_below="@id/hero_select_tabs" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/hero_select_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/hero_select_tabs" />
+        android:layout_below="@id/hero_select_tabs" />
 
 </RelativeLayout>

@@ -85,7 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = database.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
-            hero = new Hero(cursor.getLong(1), cursor.getString(2), cursor.getInt(3)); //cursor.getLong(1), cursor.getString(2), cursor.getInt(3)
+            hero = new Hero(cursor.getLong(1), cursor.getString(2), cursor.getInt(3));
         }
 
         return hero;
