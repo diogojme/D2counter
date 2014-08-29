@@ -5,9 +5,9 @@ public class Hero {
 
     private long id;
     private String name;
-    private String type;
+    private long type;
 
-    public Hero(long id, String name, String type){
+    public Hero(long id, String name, long type){
         this.id = id;
         this.name = name;
         this.type = type;
@@ -29,11 +29,11 @@ public class Hero {
         this.name = name;
     }
 
-    public String getType() {
+    public long getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(long type) {
         this.type = type;
     }
 }

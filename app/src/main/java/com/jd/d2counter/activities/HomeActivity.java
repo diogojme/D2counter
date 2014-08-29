@@ -4,19 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.jd.d2counter.R;
-import com.jd.d2counter.adapter.HeroListAdapter;
-import com.jd.d2counter.objects.Hero;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
-public class MyActivity extends ActionBarActivity implements View.OnClickListener {
+public class HomeActivity extends ActionBarActivity implements View.OnClickListener {
 
     private ViewHolder mHolder;
 
@@ -36,7 +29,7 @@ public class MyActivity extends ActionBarActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if (view == mHolder.teamPick01) {
-            Intent intent = new Intent(MyActivity.this, HeroSelectActivity.class);
+            Intent intent = new Intent(HomeActivity.this, HeroSelectActivity.class);
             startActivity(intent);
         }
     }
