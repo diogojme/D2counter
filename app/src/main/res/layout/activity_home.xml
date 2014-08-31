@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/maroon"
+    android:background="@color/quantum"
     tools:context=".MyActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/background">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,42 +28,54 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:text="Suggest Pick"
                     android:textColor="@android:color/white"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:gravity="center_horizontal">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/suggest_pick_01"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/suggest_pick_02"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/suggest_pick_03"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/suggest_pick_04"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/suggest_pick_05"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:src="@drawable/abaddon_vert"/>
 
@@ -94,7 +105,7 @@
                     android:textSize="24sp"
                     android:textColor="@android:color/white"/>
 
-                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,42 +118,54 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:text="Suggest Ban"
                     android:textColor="@android:color/white"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:gravity="center_horizontal">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/suggest_ban_01"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/suggest_ban_02"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/suggest_ban_03"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/suggest_ban_04"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/suggest_ban_05"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:src="@drawable/abaddon_vert"/>
 
@@ -175,36 +198,47 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
                     android:orientation="vertical"
                     android:gravity="center_horizontal">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/team_ban_01"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="3dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/team_ban_02"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="3dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/team_ban_03"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="3dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/team_ban_04"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="3dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/team_ban_05"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="3dp"
                         android:src="@drawable/abaddon_vert"/>
 
@@ -231,36 +265,47 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
                     android:orientation="vertical"
                     android:gravity="center_horizontal">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/enemy_ban_01"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="3dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/enemy_ban_02"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="3dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/enemy_ban_03"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="3dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/enemy_ban_04"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="3dp"
                         android:src="@drawable/abaddon_vert"/>
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:id="@+id/enemy_ban_05"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_margin="3dp"
                         android:src="@drawable/abaddon_vert"/>
 
@@ -273,6 +318,7 @@
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/content_team_ban"
                 android:layout_toLeftOf="@id/content_enemy_ban"
+                android:layout_marginBottom="16dp"
                 android:layout_alignParentTop="true"
                 android:orientation="vertical">
 
@@ -299,33 +345,47 @@
 
                         <ImageView
                             android:id="@+id/team_pick_01"
-                            android:layout_width="92dp"
-                            android:layout_height="92dp"
-                            android:layout_margin="2dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
+                            android:background="@color/green"/>
+
+                        <ImageView
+                            android:id="@+id/team_pick_02"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/abaddon_vert"/>
 
                         <ImageView
-                            android:layout_width="92dp"
-                            android:layout_height="92dp"
-                            android:layout_margin="2dp"
+                            android:id="@+id/team_pick_03"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/abaddon_vert"/>
 
                         <ImageView
-                            android:layout_width="92dp"
-                            android:layout_height="92dp"
-                            android:layout_margin="2dp"
+                            android:id="@+id/team_pick_04"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/abaddon_vert"/>
 
                         <ImageView
-                            android:layout_width="92dp"
-                            android:layout_height="92dp"
-                            android:layout_margin="2dp"
-                            android:src="@drawable/abaddon_vert"/>
-
-                        <ImageView
-                            android:layout_width="92dp"
-                            android:layout_height="92dp"
-                            android:layout_margin="2dp"
+                            android:id="@+id/team_pick_05"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/abaddon_vert"/>
 
                     </LinearLayout>
@@ -354,33 +414,48 @@
                         android:gravity="center_horizontal">
 
                         <ImageView
-                            android:layout_width="92dp"
-                            android:layout_height="92dp"
-                            android:layout_margin="2dp"
+                            android:id="@+id/enemy_pick_01"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/abaddon_vert"/>
 
                         <ImageView
-                            android:layout_width="92dp"
-                            android:layout_height="92dp"
-                            android:layout_margin="2dp"
+                            android:id="@+id/enemy_pick_02"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/abaddon_vert"/>
 
                         <ImageView
-                            android:layout_width="92dp"
-                            android:layout_height="92dp"
-                            android:layout_margin="2dp"
+                            android:id="@+id/enemy_pick_03"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/abaddon_vert"/>
 
                         <ImageView
-                            android:layout_width="92dp"
-                            android:layout_height="92dp"
-                            android:layout_margin="2dp"
+                            android:id="@+id/enemy_pick_04"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/abaddon_vert"/>
 
                         <ImageView
-                            android:layout_width="92dp"
-                            android:layout_height="92dp"
-                            android:layout_margin="2dp"
+                            android:id="@+id/enemy_pick_05"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/abaddon_vert"/>
 
                     </LinearLayout>
@@ -390,156 +465,5 @@
         </RelativeLayout>
 
     </LinearLayout>
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/main_header"-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_marginLeft="16dp"-->
-    <!--android:layout_marginTop="16dp"-->
-    <!--android:layout_marginRight="16dp"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:background="@color/maroon">-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/header_team_ban"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:orientation="vertical"-->
-    <!--android:gravity="center_horizontal">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Team Ban"-->
-    <!--android:textColor="@android:color/white"/>-->
-
-    <!--<ListView-->
-    <!--android:id="@+id/main_team_ban"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="16dp"/>-->
-
-    <!--</LinearLayout>-->
-
-
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="3"-->
-    <!--android:orientation="vertical"-->
-    <!--android:gravity="center">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Team Pick"-->
-    <!--android:textColor="@android:color/white"/>-->
-
-    <!--<ListView-->
-    <!--android:id="@+id/main_team_pick"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="16dp"/>-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="3"-->
-    <!--android:orientation="vertical"-->
-    <!--android:gravity="center">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Suggest Pick"-->
-    <!--android:textColor="@android:color/white"/>-->
-
-    <!--<ListView-->
-    <!--android:id="@+id/main_suggest_pick"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="16dp"/>-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical"-->
-    <!--android:layout_weight="3">-->
-
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="3"-->
-    <!--android:orientation="vertical"-->
-    <!--android:gravity="center">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Enemy Pick"-->
-    <!--android:textColor="@android:color/white"/>-->
-
-    <!--<ListView-->
-    <!--android:id="@+id/main_enemy_pick"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="16dp"/>-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="3"-->
-    <!--android:orientation="vertical"-->
-    <!--android:gravity="center">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Suggest Ban"-->
-    <!--android:textColor="@android:color/white"/>-->
-
-    <!--<ListView-->
-    <!--android:id="@+id/main_suggest_ban"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="16dp"/>-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center"-->
-    <!--android:orientation="vertical">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Enemy Ban"-->
-    <!--android:textColor="@android:color/white"/>-->
-
-    <!--<ListView-->
-    <!--android:id="@+id/main_enemy_ban"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="16dp"/>-->
-
-    <!--</LinearLayout>-->
-
-    <!--</LinearLayout>-->
 
 </RelativeLayout>
