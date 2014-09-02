@@ -100,13 +100,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         statement.clearBindings();
     }
 
-    public void addCounter(long idHero, long idCounter, long idSupport, long posicaoPick, long posicaoSupport){
+    public void addCounter(long idHero, long idCounter, long idSupport, long posicao){
         SQLiteStatement statement = Statement.with(database).get(STATEMENT_HERO_COUNTER);
         statement.bindLong(1, idHero);
         statement.bindLong(2, idCounter);
         statement.bindLong(3, idSupport);
-        statement.bindLong(4, posicaoPick);
-        statement.bindLong(5, posicaoSupport);
+        statement.bindLong(4, posicao);
         statement.execute();
         statement.clearBindings();
     }
@@ -119,7 +118,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_HERO_NAME = "name";
     private static final String COLUMN_HERO_TYPE = "type";
     private static final String COLUMN_HERO_COUNTER_ID = "id_counter";
-    private static final String COLUMN_HERO_COUNTER_SUPPORT_ID = "id_counter";
+    private static final String COLUMN_HERO_COUNTER_POSITION = "position";
+    private static final String COLUMN_HERO_COUNTER_SUPPORT_ID = "id_counter_support";
 
     private static final String CREATE_TABLE_HERO = "CREATE TABLE " + TABLE_HERO + "("
             + COLUMN_HERO_ID + " LONG PRIMARY KEY, "
@@ -129,9 +129,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_HERO_COUNTER = "CREATE TABLE " + TABLE_HERO_COUNTER + "("
             + COLUMN_HERO_ID + " LONG NOT NULL, "
             + COLUMN_HERO_COUNTER_ID + " LONG NOT NULL,"
-            + COLUMN_HERO_COUNTER_SUPPORT_ID + " LONG NOT NULL" +
-            ");";
+            + COLUMN_HERO_COUNTER_SUPPORT_ID + " LONG NOT NULL,"
+            + COLUMN_HERO_COUNTER_POSITION + " LONG NOT NULL"
+            +");";
 
     private static final String STATEMENT_HERO = "INSERT INTO " + TABLE_HERO + " VALUES (?, ?, ?)";
-    private static final String STATEMENT_HERO_COUNTER = "INSERT INTO " + TABLE_HERO_COUNTER + " VALUES (?, ?, ?, ?, ?)";
+    private static final String STATEMENT_HERO_COUNTER = "INSERT INTO " + TABLE_HERO_COUNTER + " VALUES (?, ?, ?, ?)";
 }

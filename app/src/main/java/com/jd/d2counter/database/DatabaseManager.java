@@ -129,11 +129,11 @@ public class DatabaseManager implements Database {
     @Override
     public void insertCounter() {
         //ABADON
-        database.addCounter(0, 22, 57, 1, 1);
-        database.addCounter(0, 105, 88, 2, 2);
-        database.addCounter(0, 45, 19, 3, 3);
-        database.addCounter(0, 48, 18, 4, 4);
-        database.addCounter(0, 3, 36, 5, 5);
+        database.addCounter(0, 22, 57, 1);
+        database.addCounter(0, 105, 88, 2);
+        database.addCounter(0, 45, 19, 3);
+        database.addCounter(0, 48, 18, 4);
+        database.addCounter(0, 3, 36, 5);
     }
 
 
