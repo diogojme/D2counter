@@ -1,26 +1,40 @@
 package com.jd.d2counter.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.jd.d2counter.R;
+import com.jd.d2counter.database.DatabaseHelper;
 
 
 public class HomeActivity extends ActionBarActivity implements View.OnClickListener {
 
     private ViewHolder mHolder;
+    private DatabaseHelper mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
+        initView();
+        initData();
+    }
+
+    private void initData(){
+        mDatabase = DatabaseHelper.with(this);
+        mDatabase.open();
+        new LoadDatabase().execute();
+    }
+
+    private void initView(){
         setContentView(R.layout.activity_home);
 
         mHolder = new ViewHolder();
-
+        mHolder.loading = findViewById(R.id.loading);
         mHolder.teamBan01 = (ImageView) findViewById(R.id.team_ban_01);
         mHolder.teamBan02 = (ImageView) findViewById(R.id.team_ban_02);
         mHolder.teamBan03 = (ImageView) findViewById(R.id.team_ban_03);
@@ -92,7 +106,32 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         mHolder.suggestPick03.setOnClickListener(this);
         mHolder.suggestPick04.setOnClickListener(this);
         mHolder.suggestPick05.setOnClickListener(this);
+    }
 
+    private class LoadDatabase extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            setLoading(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mDatabase.insertHero();
+            mDatabase.insertCounter();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            setLoading(View.GONE);
+        }
+    }
+
+    private void setLoading(int visibility){
+        mHolder.loading.setVisibility(visibility);
     }
 
     @Override
@@ -104,40 +143,42 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     private static class ViewHolder {
-        private ImageView teamPick01;
-        private ImageView teamPick02;
-        private ImageView teamPick03;
-        private ImageView teamPick04;
-        private ImageView teamPick05;
+        View loading;
 
-        private ImageView enemyPick01;
-        private ImageView enemyPick02;
-        private ImageView enemyPick03;
-        private ImageView enemyPick04;
-        private ImageView enemyPick05;
+        ImageView teamPick01;
+        ImageView teamPick02;
+        ImageView teamPick03;
+        ImageView teamPick04;
+        ImageView teamPick05;
 
-        private ImageView teamBan01;
-        private ImageView teamBan02;
-        private ImageView teamBan03;
-        private ImageView teamBan04;
-        private ImageView teamBan05;
+        ImageView enemyPick01;
+        ImageView enemyPick02;
+        ImageView enemyPick03;
+        ImageView enemyPick04;
+        ImageView enemyPick05;
 
-        private ImageView enemyBan01;
-        private ImageView enemyBan02;
-        private ImageView enemyBan03;
-        private ImageView enemyBan04;
-        private ImageView enemyBan05;
+        ImageView teamBan01;
+        ImageView teamBan02;
+        ImageView teamBan03;
+        ImageView teamBan04;
+        ImageView teamBan05;
 
-        private ImageView suggestPick01;
-        private ImageView suggestPick02;
-        private ImageView suggestPick03;
-        private ImageView suggestPick04;
-        private ImageView suggestPick05;
+        ImageView enemyBan01;
+        ImageView enemyBan02;
+        ImageView enemyBan03;
+        ImageView enemyBan04;
+        ImageView enemyBan05;
 
-        private ImageView suggestBan01;
-        private ImageView suggestBan02;
-        private ImageView suggestBan03;
-        private ImageView suggestBan04;
-        private ImageView suggestBan05;
+        ImageView suggestPick01;
+        ImageView suggestPick02;
+        ImageView suggestPick03;
+        ImageView suggestPick04;
+        ImageView suggestPick05;
+
+        ImageView suggestBan01;
+        ImageView suggestBan02;
+        ImageView suggestBan03;
+        ImageView suggestBan04;
+        ImageView suggestBan05;
     }
 }

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.jd.d2counter.R;
+import com.jd.d2counter.objects.Hero;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -17,11 +18,13 @@ public class HeroSelectAdapter extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<Integer> mHeroesList;
+    private List<Hero> mHeroesList;
+    private OnHeroClickListener mListener;
 
-    public HeroSelectAdapter(Context context, List<Integer> heroesList) {
+    public HeroSelectAdapter(Context context, List<Hero> heroesList, OnHeroClickListener listener) {
         if (context == null) return;
-        mContext= context;
+        mContext = context;
+        mListener = listener;
         mHeroesList = heroesList;
         mInflater = LayoutInflater.from(context);
     }
@@ -55,9 +58,9 @@ public class HeroSelectAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(position != 10 && position != 22){
-            Picasso.with(mContext).load(mHeroesList.get(position)).placeholder(R.drawable.placeholder).into( holder.image);
-        }
+        holder.image.setOnClickListener(new HeroListener(mHeroesList.get(position)));
+
+        Picasso.with(mContext).load(mHeroesList.get(position).getImage()).placeholder(R.drawable.placeholder).into(holder.image);
 
         return convertView;
     }
@@ -66,4 +69,20 @@ public class HeroSelectAdapter extends BaseAdapter {
         ImageView image;
     }
 
+    private class HeroListener implements View.OnClickListener {
+        Hero hero;
+
+        public HeroListener(Hero hero) {
+            this.hero = hero;
+        }
+
+        @Override
+        public void onClick(View view) {
+            mListener.onHeroClick(hero);
+        }
+    }
+
+    public interface OnHeroClickListener {
+        void onHeroClick(Hero hero);
+    }
 }

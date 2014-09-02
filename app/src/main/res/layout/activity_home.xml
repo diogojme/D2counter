@@ -6,6 +6,8 @@
     android:background="@color/quantum"
     tools:context=".MyActivity">
 
+    <include layout="@layout/component_loading" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
