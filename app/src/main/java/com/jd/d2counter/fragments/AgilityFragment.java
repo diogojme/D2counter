@@ -13,7 +13,6 @@ import com.jd.d2counter.adapter.HeroSelectAdapter;
 import com.jd.d2counter.database.DatabaseHelper;
 import com.jd.d2counter.objects.Hero;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,7 +33,7 @@ public class AgilityFragment extends Fragment implements HeroSelectAdapter.OnHer
 
     private void initData() {
         mDatabase = DatabaseHelper.with(getActivity());
-        list = new ArrayList<Hero>();
+        mDatabase.open();
     }
 
     private void initView(View view) {

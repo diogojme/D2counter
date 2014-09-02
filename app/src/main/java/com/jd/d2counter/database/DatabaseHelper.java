@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Database {
     private Hero hero;
     private SQLiteDatabase database;
     private static DatabaseHelper instance;
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "dota.database";
 
     private DatabaseHelper(Context context) {
@@ -71,7 +71,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Database {
         database.endTransaction();
     }
 
-    @Override
     public List<Hero> getHeroList(String query) {
         List<Hero> heroes = new ArrayList<Hero>();
         Cursor cursor = database.rawQuery(query, null);
@@ -86,14 +85,13 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Database {
         return heroes;
     }
 
-    @Override
     public Hero getHero(long id) {
         Hero hero = null;
         String query = "SELECT * FROM " + TABLE_HERO + " WHERE " + COLUMN_HERO_ID + " = " + id;
         Cursor cursor = database.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
-            hero = new Hero(cursor.getLong(1), cursor.getString(2), cursor.getInt(3), cursor.getInt(4));
+            hero = new Hero(cursor.getLong(1), cursor.getString(2), cursor.getLong(3), cursor.getLong(4));
         }
 
         return hero;
@@ -102,10 +100,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Database {
     @Override
     public void addHero(Hero hero) {
         SQLiteStatement statement = Statement.with(database).get(STATEMENT_HERO);
-        statement.bindLong(1, hero.getId());
+        statement.bindLong(1,hero.getId());
         statement.bindString(2, hero.getName());
         statement.bindLong(3, hero.getType());
-        statement.bindLong(3, hero.getId());
+        statement.bindLong(4, hero.getImage());
         statement.execute();
         statement.clearBindings();
     }
@@ -120,7 +118,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Database {
         statement.clearBindings();
     }
 
-    @Override
     public void insertHero() {
         beginTransaction();
         addHero(new Hero(0, "ABADDON", Hero.TYPE_STRENGHT, R.drawable.abaddon_vert));
@@ -233,7 +230,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Database {
     }
 
     // ID heroi, id counter, id melhor suporte
-    @Override
     public void insertCounter() {
         beginTransaction();
         //ABADON
@@ -401,11 +397,13 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Database {
     private static final String COLUMN_HERO_ID = "id";
     private static final String COLUMN_HERO_NAME = "name";
     private static final String COLUMN_HERO_TYPE = "type";
+    private static final String COLUMN_HERO_IMAGE = "image";
 
     private static final String CREATE_TABLE_HERO = "CREATE TABLE " + TABLE_HERO + "("
             + COLUMN_HERO_ID + " LONG PRIMARY KEY, "
             + COLUMN_HERO_NAME + " TEXT NOT NULL, "
-            + COLUMN_HERO_TYPE + " INTEGER NOT NULL );";
+            + COLUMN_HERO_TYPE + " LONG NOT NULL,"
+            + COLUMN_HERO_IMAGE + " LONG NOT NULL );";
 
     private static final String TABLE_HERO_COUNTER = "hero_counter";
 
@@ -420,7 +418,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Database {
             + COLUMN_HERO_COUNTER_POSITION + " LONG NOT NULL"
             + ");";
 
-    private static final String STATEMENT_HERO = "INSERT INTO " + TABLE_HERO + " VALUES (?, ?, ?)";
+    private static final String STATEMENT_HERO = "INSERT INTO " + TABLE_HERO + " VALUES (?, ?, ?, ?)";
     private static final String STATEMENT_HERO_COUNTER = "INSERT INTO " + TABLE_HERO_COUNTER + " VALUES (?, ?, ?, ?)";
 
     public static final String QUERY_GET_ALL_AGI = "SELECT * FROM " + TABLE_HERO + " WHERE "+ COLUMN_HERO_TYPE + " = " + Hero.TYPE_AGILITY;

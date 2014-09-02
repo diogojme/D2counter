@@ -5,21 +5,21 @@ public class Hero {
 
     private long id;
     private long type;
-    private int image;
+    private long image;
     private String name;
 
-    public Hero(long id, String name, long type, int image){
+    public Hero(long id, String name, long type, long image){
         this.id = id;
         this.name = name;
         this.type = type;
         this.image = image;
     }
 
-    public int getImage() {
+    public long getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(long image) {
         this.image = image;
     }
 

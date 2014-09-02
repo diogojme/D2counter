@@ -60,7 +60,7 @@ public class HeroSelectAdapter extends BaseAdapter {
 
         holder.image.setOnClickListener(new HeroListener(mHeroesList.get(position)));
 
-        Picasso.with(mContext).load(mHeroesList.get(position).getImage()).placeholder(R.drawable.placeholder).into(holder.image);
+        Picasso.with(mContext).load((int) mHeroesList.get(position).getImage()).placeholder(R.drawable.placeholder).into(holder.image);
 
         return convertView;
     }
