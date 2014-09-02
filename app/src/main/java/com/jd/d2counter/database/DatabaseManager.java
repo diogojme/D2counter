@@ -125,6 +125,18 @@ public class DatabaseManager implements Database{
         database.endTransaction();
     }
 
+    // ID heroi, id counter, id melhor suporte
+    @Override
+    public void insertCounter() {
+        //ABADON
+        database.addCounter(0,22,0);
+        database.addCounter(0,105,0);
+        database.addCounter(0,45,0);
+        database.addCounter(0,48,0);
+        database.addCounter(0,3,0);
+    }
+
+
     private static final long TYPE_AGILITY = 1;
     private static final long TYPE_STRENGHT = 2;
     private static final long TYPE_INTELIGENCE = 3;
