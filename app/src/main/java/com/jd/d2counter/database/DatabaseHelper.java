@@ -100,11 +100,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         statement.clearBindings();
     }
 
-    public void addCounter(long idHero, long idCounter, long idSupport){
+    public void addCounter(long idHero, long idCounter, long idSupport, long posicaoPick, long posicaoSupport){
         SQLiteStatement statement = Statement.with(database).get(STATEMENT_HERO_COUNTER);
         statement.bindLong(1, idHero);
         statement.bindLong(2, idCounter);
         statement.bindLong(3, idSupport);
+        statement.bindLong(4, posicaoPick);
+        statement.bindLong(5, posicaoSupport);
         statement.execute();
         statement.clearBindings();
     }
@@ -131,5 +133,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ");";
 
     private static final String STATEMENT_HERO = "INSERT INTO " + TABLE_HERO + " VALUES (?, ?, ?)";
-    private static final String STATEMENT_HERO_COUNTER = "INSERT INTO " + TABLE_HERO_COUNTER + " VALUES (?, ?, ?)";
+    private static final String STATEMENT_HERO_COUNTER = "INSERT INTO " + TABLE_HERO_COUNTER + " VALUES (?, ?, ?, ?, ?)";
 }
