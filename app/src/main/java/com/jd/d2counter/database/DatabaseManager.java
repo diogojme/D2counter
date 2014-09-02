@@ -134,6 +134,20 @@ public class DatabaseManager implements Database {
         database.addCounter(0, 45, 19, 3);
         database.addCounter(0, 48, 18, 4);
         database.addCounter(0, 3, 36, 5);
+
+        //ALCHEMIST
+        database.addCounter(1, 65, 39, 1);
+        database.addCounter(1, 89, 57, 2);
+        database.addCounter(1, 59, 2, 3);
+        database.addCounter(1, 9, 19, 4);
+        database.addCounter(1, 92, 90, 5);
+
+        //ANCIENT
+        database.addCounter(1, 45, 55, 1);
+        database.addCounter(1, 10, 72, 2);
+        database.addCounter(1, 15, 5, 3);
+        database.addCounter(1, 95, 66, 4);
+        database.addCounter(1, 3, 87, 5);
     }
 
 
