@@ -122,6 +122,7 @@ public class DatabaseManager implements Database {
         database.addHero(new Hero(102, "TERRORBLADE", TYPE_AGILITY));
         database.addHero(new Hero(103, "PHOENIX", TYPE_STRENGHT));
         database.addHero(new Hero(104, "LEGION COMMANDER", TYPE_STRENGHT));
+        database.addHero(new Hero(105, "BROODMOTHER", TYPE_AGILITY));
         database.endTransaction();
     }
 
@@ -148,6 +149,95 @@ public class DatabaseManager implements Database {
         database.addCounter(1, 15, 5, 3);
         database.addCounter(1, 95, 66, 4);
         database.addCounter(1, 3, 87, 5);
+
+
+        addSergio();
+    }
+
+    private void addSergio() {
+        //WARLOCK
+        database.addCounter(94,101,66, 1);
+        database.addCounter(94,45,39, 2);
+        database.addCounter(94,95,36, 3);
+        database.addCounter(94,52,27, 4);
+        database.addCounter(94,20,33, 5);
+
+        //WEAVER
+        database.addCounter(95,8,99, 1);
+        database.addCounter(95,65,53, 2);
+        database.addCounter(95,53,5, 3);
+        database.addCounter(95,9,55, 4);
+        database.addCounter(95,73,72, 5);
+
+        //WINDRANGER
+        database.addCounter(96,64,56, 1);
+        database.addCounter(96,50,16, 2);
+        database.addCounter(96,51,85, 3);
+        database.addCounter(96,98,36, 4);
+        database.addCounter(96,46,81, 5);
+
+        //WITCH DOCTOR
+        database.addCounter(97,105,71, 1);
+        database.addCounter(97,52,93, 2);
+        database.addCounter(97,65,36, 3);
+        database.addCounter(97,95,72, 4);
+        database.addCounter(97,15,61, 5);
+
+        //WRATH KING
+        database.addCounter(98,60,88, 1);
+        database.addCounter(98,48,57, 2);
+        database.addCounter(98,3,19, 3);
+        database.addCounter(98,32,34, 4);
+        database.addCounter(98,102,18, 5);
+
+        //ZEUS
+        database.addCounter(99,31,14, 1);
+        database.addCounter(99,48,93, 2);
+        database.addCounter(99,98,85, 3);
+        database.addCounter(99,40,103, 4);
+        database.addCounter(99,35,33, 5);
+
+        //EARTH SPIRIT
+        database.addCounter(100,31,53, 1);
+        database.addCounter(100,53,94, 2);
+        database.addCounter(100,36,7, 3);
+        database.addCounter(100,89,36, 4);
+        database.addCounter(100,8,0, 5);
+
+        //EMBER SPIRIT
+        database.addCounter(101,31,21, 1);
+        database.addCounter(101,35,57, 2);
+        database.addCounter(101,40,91, 3);
+        database.addCounter(101,15,103, 4);
+        database.addCounter(101,29,71, 5);
+
+        //TERRORBLADE
+        database.addCounter(102,48,67, 1);
+        database.addCounter(102,47,18, 2);
+        database.addCounter(102,105,82, 3);
+        database.addCounter(102,104,38, 4);
+        database.addCounter(102,46,41, 5);
+
+        //PHOENIX
+        database.addCounter(103,71,71, 1);
+        database.addCounter(103,86,27, 2);
+        database.addCounter(103,48,57, 3);
+        database.addCounter(103,31,33, 4);
+        database.addCounter(103,8,96, 5);
+
+        //LEGION COMMANDER
+        database.addCounter(104,23,19, 1);
+        database.addCounter(104,86,90, 2);
+        database.addCounter(104,80,57, 3);
+        database.addCounter(104,79,79, 4);
+        database.addCounter(104,47,39, 5);
+
+        //BROODMOTHER
+        database.addCounter(105,4,19, 1);
+        database.addCounter(105,48,82, 2);
+        database.addCounter(105,51,25, 3);
+        database.addCounter(105,73,67, 4);
+        database.addCounter(105,104,18, 5);
     }
 
 
