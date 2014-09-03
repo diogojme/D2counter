@@ -119,7 +119,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         @Override
         protected Void doInBackground(Void... voids) {
             mDatabase.insertHero();
-            mDatabase.insertCounter();
+//            mDatabase.insertCounter();
             return null;
         }
 

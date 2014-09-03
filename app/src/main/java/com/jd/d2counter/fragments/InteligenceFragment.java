@@ -10,6 +10,7 @@ import android.widget.GridView;
 
 import com.jd.d2counter.R;
 import com.jd.d2counter.adapter.HeroSelectAdapter;
+import com.jd.d2counter.database.DatabaseHelper;
 import com.jd.d2counter.objects.Hero;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class InteligenceFragment extends Fragment implements HeroSelectAdapter.O
     List<Hero> list;
     ViewHolder mHolder;
     HeroSelectAdapter mAdapter;
+    DatabaseHelper mDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class InteligenceFragment extends Fragment implements HeroSelectAdapter.O
 
     private void initData() {
         list = new ArrayList<Hero>();
+        mDatabase = DatabaseHelper.with(getActivity());
+        mDatabase.open();
 
     }
 
@@ -45,6 +49,7 @@ public class InteligenceFragment extends Fragment implements HeroSelectAdapter.O
     private void initAdapter() {
         new DataTask().execute();
     }
+
 
     @Override
     public void onHeroClick(Hero hero) {
@@ -61,6 +66,7 @@ public class InteligenceFragment extends Fragment implements HeroSelectAdapter.O
 
         @Override
         protected Void doInBackground(Void... voids) {
+            list = mDatabase.getHeroList(Hero.TYPE_INTELIGENCE);
             mAdapter = new HeroSelectAdapter(getActivity(), list, InteligenceFragment.this);
             return null;
         }

@@ -62,7 +62,7 @@ public class AgilityFragment extends Fragment implements HeroSelectAdapter.OnHer
 
         @Override
         protected Void doInBackground(Void... voids) {
-            list = mDatabase.getHeroList(DatabaseHelper.QUERY_GET_ALL_AGI);
+            list = mDatabase.getHeroList(Hero.TYPE_AGILITY);
             mAdapter = new HeroSelectAdapter(getActivity(), list, AgilityFragment.this);
             return null;
         }

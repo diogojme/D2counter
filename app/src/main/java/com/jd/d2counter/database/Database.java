@@ -1,8 +1,6 @@
 package com.jd.d2counter.database;
 
 
-import com.jd.d2counter.objects.Hero;
-
 public interface Database {
     void open();
 
@@ -11,6 +9,6 @@ public interface Database {
     boolean inTransaction();
     void setTransactionSuccessful();
 
-    void addHero(Hero hero);
+    void addHero(long id, String name, int type, int resourceId);
 
 }

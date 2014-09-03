@@ -10,6 +10,7 @@ import android.widget.GridView;
 
 import com.jd.d2counter.R;
 import com.jd.d2counter.adapter.HeroSelectAdapter;
+import com.jd.d2counter.database.DatabaseHelper;
 import com.jd.d2counter.objects.Hero;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
 
     List<Hero> list;
     ViewHolder mHolder;
+    DatabaseHelper mDatabase;
     HeroSelectAdapter mAdapter;
 
     @Override
@@ -33,7 +35,8 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
 
     private void initData() {
         list = new ArrayList<Hero>();
-
+        mDatabase = DatabaseHelper.with(getActivity());
+        mDatabase.open();
     }
 
     private void initView(View view) {
@@ -61,6 +64,7 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
 
         @Override
         protected Void doInBackground(Void... voids) {
+            list = mDatabase.getHeroList(Hero.TYPE_STRENGHT);
             mAdapter = new HeroSelectAdapter(getActivity(), list, StrenghtFragment.this);
             return null;
         }
