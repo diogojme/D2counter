@@ -1,7 +1,6 @@
 package com.jd.d2counter.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -27,7 +26,6 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     private void initData(){
         mDatabase = DatabaseHelper.with(this);
         mDatabase.open();
-        new LoadDatabase().execute();
     }
 
     private void initView(){
@@ -106,28 +104,6 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         mHolder.suggestPick03.setOnClickListener(this);
         mHolder.suggestPick04.setOnClickListener(this);
         mHolder.suggestPick05.setOnClickListener(this);
-    }
-
-    private class LoadDatabase extends AsyncTask<Void,Void,Void>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            setLoading(View.VISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            mDatabase.insertHero();
-//            mDatabase.insertCounter();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            setLoading(View.GONE);
-        }
     }
 
     private void setLoading(int visibility){

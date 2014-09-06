@@ -7,6 +7,8 @@ public class Hero {
     private long type;
     private long image;
     private String name;
+    private boolean banned;
+    private boolean picked;
 
     public Hero(long id, String name, long type, long image){
         this.id = id;
@@ -45,6 +47,22 @@ public class Hero {
 
     public void setType(long type) {
         this.type = type;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
+    }
+
+    public boolean isPicked() {
+        return picked;
+    }
+
+    public void setPicked(boolean picked) {
+        this.picked = picked;
     }
 
     public static final int TYPE_AGILITY = 1;

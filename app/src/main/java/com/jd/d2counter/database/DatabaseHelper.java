@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase database;
     private static DatabaseHelper instance;
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "dota.database";
 
     private DatabaseHelper(Context context) {
@@ -32,29 +32,59 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE hero (id long primary key, name TEXT NOT NULL, type int not null, image int not null)");
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HERO + " (id long primary key, name TEXT NOT NULL, type int not null, image int not null)");
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HERO_COUNTER + " (id_hero long NOT NULL, id_counter LONG NOT NULL, id_support LONG NOT NULL, position INT NOT NULL)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS hero");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_HERO);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_HERO_COUNTER);
         this.onCreate(sqLiteDatabase);
     }
 
     public void open() {
         if (database == null) {
             database = getWritableDatabase();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    //TODO o begin transaction nao funciona
+                    insertHero();
+                    insertCounter();
+                    getSuggestedPick(5);
+                }
+            }).start();
+
         }
     }
 
     private void addHero(long id, String name, int type, int image) {
-        String sql = "INSERT OR REPLACE INTO hero (id,name,type,image) VALUES('" + id + "','" + name + "','" + type + "','" + image + "')";
+        String sql = "INSERT OR REPLACE INTO " + TABLE_HERO + " (id,name,type,image) VALUES('" + id + "','" + name + "','" + type + "','" + image + "')";
         database.execSQL(sql);
+    }
+
+    private void addCounter(long id, long idCounter, long idSupport, int position) {
+        String sql = "INSERT OR REPLACE INTO " + TABLE_HERO_COUNTER + "  (id_hero, id_counter, id_support, position) VALUES('" + id + "','" + idCounter + "','" + idSupport + "','" + position + "')";
+        database.execSQL(sql);
+    }
+
+    public Hero getHero(long idHero) {
+        Hero hero = null;
+        String selectQuery = "SELECT * FROM " + TABLE_HERO + " WHERE id = ?";
+        Cursor cursor = database.rawQuery(selectQuery, new String[]{String.valueOf(idHero)});
+
+        if (cursor.moveToFirst()) {
+            hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3));
+        }
+
+        cursor.close();
+        return hero;
     }
 
     public List<Hero> getHeroList(int type) {
         String table[] = {"id", "name", "type", "image"};
-        Cursor cursor = database.query("hero", table, "type = " + type, null, null, null, null);
+        Cursor cursor = database.query(TABLE_HERO, table, "type = " + type, null, null, null, null);
         System.out.println(cursor.getCount());
         List<Hero> list = new ArrayList<Hero>();
 
@@ -66,6 +96,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return list;
+    }
+
+    public List<Hero> getSuggestedPick(final long idHero) {
+        List<Hero> list = new ArrayList<Hero>();
+
+        String table[] = {"id_hero", "id_counter", "id_support", "position"};
+        //TODO duplicanddo dados sempre que roda o app de novo
+        Cursor cursor = database.query(TABLE_HERO_COUNTER, table, "id_hero = " + idHero, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(getHero(cursor.getLong(1)));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return list;
+    }
+
+    public List<Hero> getSuggestedPick(final List<Hero> listHero) {
+        return null;
     }
 
     public void insertHero() {
@@ -175,80 +227,84 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         addHero(103, "PHOENIX", Hero.TYPE_STRENGHT, R.drawable.phoenix_vert);
         addHero(104, "LEGION COMMANDER", Hero.TYPE_STRENGHT, R.drawable.legion_commander_vert);
         addHero(105, "BROODMOTHER", Hero.TYPE_AGILITY, R.drawable.broodmother_vert);
-
+        System.out.println("Herois inseridos!");
     }
 
-//    public void insertCounter() {
-//        //ABADON
-//        addCounter(0, 3, 88, 1);
-//        addCounter(0, 47, 36, 2);
-//        addCounter(0, 22, 7, 3);
-//        addCounter(0, 53, 53, 4);
-//        addCounter(0, 26, 26, 5);
-//
-//        //ALCHEMIST
-//        addCounter(1, 65, 39, 1);
-//        addCounter(1, 92, 90, 2);
-//        addCounter(1, 59, 2, 3);
-//        addCounter(1, 51, 57, 4);
-//        addCounter(1, 13, 17, 5);
-//
-//        //ANCIENT
-//        addCounter(2, 3, 93, 1);
-//        addCounter(2, 105, 96, 2);
-//        addCounter(2, 52, 87, 3);
-//        addCounter(2, 10, 12, 4);
-//        addCounter(2, 102, 72, 5);
-//
-//        //ANTI MAGE
-//        addCounter(3, 65, 79, 1);
-//        addCounter(3, 73, 17, 2);
-//        addCounter(3, 8, 68, 3);
-//        addCounter(3, 24, 70, 4);
-//        addCounter(3, 79, 4, 5);
-//
-//        //AXE
-//        addCounter(4, 71, 91, 1);
-//        addCounter(4, 44, 99, 2);
-//        addCounter(4, 64, 71, 3);
-//        addCounter(4, 30, 39, 4);
-//        addCounter(4, 92, 16, 5);
-//
-//        //BANE
-//        addCounter(5, 105, 93, 1);
-//        addCounter(5, 44, 81, 2);
-//        addCounter(5, 46, 67, 3);
-//        addCounter(5, 102, 26, 4);
-//        addCounter(5, 23, 41, 5);
-//
-//        //BATRIDER
-//        addCounter(6, 0, 57, 1);
-//        addCounter(6, 92, 0, 2);
-//        addCounter(6, 53, 53, 3);
-//        addCounter(6, 35, 91, 4);
-//        addCounter(6, 54, 7, 5);
-//
-//        //BEAST MASTER
-//        addCounter(7, 47, 4, 1);
-//        addCounter(7, 51, 53, 2);
-//        addCounter(7, 13, 12, 3);
-//        addCounter(7, 4, 67, 4);
-//        addCounter(7, 53, 81, 5);
-//
-//        //BLOODSEEKER
-//        addCounter(8, 102, 53, 1);
-//        addCounter(8, 53, 33, 2);
-//        addCounter(8, 47, 16, 3);
-//        addCounter(8, 10, 7, 4);
-//        addCounter(8, 44, 34, 5);
-//
-//        //BOUNTY HUNTER
-//        addCounter(9, 0, 0, 1);
-//        addCounter(9, 104, 57, 2);
-//        addCounter(9, 74, 81, 3);
-//        addCounter(9, 84, 7, 4);
-//        addCounter(9, 86, 33, 5);
-//
-//    }
+    public void insertCounter() {
+        //ABADON
+        addCounter(0, 3, 88, 1);
+        addCounter(0, 47, 36, 2);
+        addCounter(0, 22, 7, 3);
+        addCounter(0, 53, 53, 4);
+        addCounter(0, 26, 26, 5);
+
+        //ALCHEMIST
+        addCounter(1, 65, 39, 1);
+        addCounter(1, 92, 90, 2);
+        addCounter(1, 59, 2, 3);
+        addCounter(1, 51, 57, 4);
+        addCounter(1, 13, 17, 5);
+
+        //ANCIENT
+        addCounter(2, 3, 93, 1);
+        addCounter(2, 105, 96, 2);
+        addCounter(2, 52, 87, 3);
+        addCounter(2, 10, 12, 4);
+        addCounter(2, 102, 72, 5);
+
+        //ANTI MAGE
+        addCounter(3, 65, 79, 1);
+        addCounter(3, 73, 17, 2);
+        addCounter(3, 8, 68, 3);
+        addCounter(3, 24, 70, 4);
+        addCounter(3, 79, 4, 5);
+
+        //AXE
+        addCounter(4, 71, 91, 1);
+        addCounter(4, 44, 99, 2);
+        addCounter(4, 64, 71, 3);
+        addCounter(4, 30, 39, 4);
+        addCounter(4, 92, 16, 5);
+
+        //BANE
+        addCounter(5, 105, 93, 1);
+        addCounter(5, 44, 81, 2);
+        addCounter(5, 46, 67, 3);
+        addCounter(5, 102, 26, 4);
+        addCounter(5, 23, 41, 5);
+
+        //BATRIDER
+        addCounter(6, 0, 57, 1);
+        addCounter(6, 92, 0, 2);
+        addCounter(6, 53, 53, 3);
+        addCounter(6, 35, 91, 4);
+        addCounter(6, 54, 7, 5);
+
+        //BEAST MASTER
+        addCounter(7, 47, 4, 1);
+        addCounter(7, 51, 53, 2);
+        addCounter(7, 13, 12, 3);
+        addCounter(7, 4, 67, 4);
+        addCounter(7, 53, 81, 5);
+
+        //BLOODSEEKER
+        addCounter(8, 102, 53, 1);
+        addCounter(8, 53, 33, 2);
+        addCounter(8, 47, 16, 3);
+        addCounter(8, 10, 7, 4);
+        addCounter(8, 44, 34, 5);
+
+        //BOUNTY HUNTER
+        addCounter(9, 0, 0, 1);
+        addCounter(9, 104, 57, 2);
+        addCounter(9, 74, 81, 3);
+        addCounter(9, 84, 7, 4);
+        addCounter(9, 86, 33, 5);
+        System.out.println("Counters inseridos com sucesso!");
+    }
+
+
+    private static String TABLE_HERO = "hero";
+    private static String TABLE_HERO_COUNTER = "counter";
 
 }
