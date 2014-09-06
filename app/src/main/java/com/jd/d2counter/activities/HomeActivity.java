@@ -11,6 +11,8 @@ import com.jd.d2counter.database.DatabaseHelper;
 import com.jd.d2counter.fragments.StrenghtFragment;
 import com.jd.d2counter.objects.Hero;
 
+import java.util.List;
+
 
 public class HomeActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -114,6 +116,14 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         if (extras != null) {
             Hero selectedHero = extras.getParcelable("hero");
             mHolder.teamPick01.setImageResource((int) selectedHero.getImage()); //TODO mudar a imagem do hero para INT
+            List<Hero> listCounter = mDatabase.getSuggestedPick(selectedHero.getId());
+            if (!listCounter.isEmpty()) {
+                mHolder.suggestPick01.setImageResource((int) listCounter.get(0).getImage());
+                mHolder.suggestPick02.setImageResource((int) listCounter.get(1).getImage());
+                mHolder.suggestPick03.setImageResource((int) listCounter.get(2).getImage());
+                mHolder.suggestPick04.setImageResource((int) listCounter.get(3).getImage());
+                mHolder.suggestPick05.setImageResource((int) listCounter.get(4).getImage());
+            }
         }
     }
 
