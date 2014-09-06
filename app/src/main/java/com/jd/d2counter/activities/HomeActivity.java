@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import com.jd.d2counter.R;
 import com.jd.d2counter.database.DatabaseHelper;
+import com.jd.d2counter.fragments.StrenghtFragment;
+import com.jd.d2counter.objects.Hero;
 
 
 public class HomeActivity extends ActionBarActivity implements View.OnClickListener {
@@ -23,12 +25,12 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         initData();
     }
 
-    private void initData(){
+    private void initData() {
         mDatabase = DatabaseHelper.with(this);
         mDatabase.open();
     }
 
-    private void initView(){
+    private void initView() {
         setContentView(R.layout.activity_home);
 
         mHolder = new ViewHolder();
@@ -106,7 +108,16 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         mHolder.suggestPick05.setOnClickListener(this);
     }
 
-    private void setLoading(int visibility){
+    private void updateListWithExtras(Intent data) {
+        Bundle extras = data.getExtras();
+
+        if (extras != null) {
+            Hero selectedHero = extras.getParcelable("hero");
+            mHolder.teamPick01.setImageResource((int) selectedHero.getImage()); //TODO mudar a imagem do hero para INT
+        }
+    }
+
+    private void setLoading(int visibility) {
         mHolder.loading.setVisibility(visibility);
     }
 
@@ -114,7 +125,16 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view == mHolder.teamPick01) {
             Intent intent = new Intent(HomeActivity.this, HeroSelectActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 0);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == StrenghtFragment.RESULT_HERO_SELECTED) {
+            updateListWithExtras(data);
         }
     }
 

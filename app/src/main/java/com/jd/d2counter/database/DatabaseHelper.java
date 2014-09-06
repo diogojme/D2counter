@@ -49,7 +49,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    //TODO o begin transaction nao funciona
+                    deleteHeros();
+                    deleteCounters();
                     insertHero();
                     insertCounter();
                     getSuggestedPick(5);
@@ -57,6 +58,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }).start();
 
         }
+    }
+
+    private void deleteHeros(){
+        String sql = "DELETE FROM " + TABLE_HERO ;
+        database.execSQL(sql);
+    }
+
+    private void deleteCounters(){
+        String sql = "DELETE FROM " + TABLE_HERO_COUNTER ;
+        database.execSQL(sql);
     }
 
     private void addHero(long id, String name, int type, int image) {
@@ -301,6 +312,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         addCounter(9, 84, 7, 4);
         addCounter(9, 86, 33, 5);
         System.out.println("Counters inseridos com sucesso!");
+
     }
 
 

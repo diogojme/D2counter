@@ -1,5 +1,6 @@
 package com.jd.d2counter.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHeroClickListener{
+public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHeroClickListener {
 
     List<Hero> list;
     ViewHolder mHolder;
@@ -51,7 +52,10 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
 
     @Override
     public void onHeroClick(Hero hero) {
-
+        Intent intent = new Intent();
+        intent.putExtra("hero", hero);
+        getActivity().setResult(RESULT_HERO_SELECTED, intent);
+        getActivity().finish();
     }
 
     private class DataTask extends AsyncTask<Void, Void, Void> {
@@ -80,6 +84,8 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
     private void setLoading(boolean loading) {
         mHolder.loading.setVisibility(loading ? View.VISIBLE : View.INVISIBLE);
     }
+
+    public static final int RESULT_HERO_SELECTED = 100;
 
     private static class ViewHolder {
         GridView grid;

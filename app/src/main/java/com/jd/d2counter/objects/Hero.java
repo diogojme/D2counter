@@ -1,7 +1,10 @@
 package com.jd.d2counter.objects;
 
 
-public class Hero {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Hero implements Parcelable {
 
     private long id;
     private long type;
@@ -64,6 +67,41 @@ public class Hero {
     public void setPicked(boolean picked) {
         this.picked = picked;
     }
+
+
+    private Hero(Parcel parcel) {
+        this.id = parcel.readLong();
+        this.name = parcel.readString();
+        this.type = parcel.readLong();
+        this.image = parcel.readLong();
+    }
+
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeLong(id);
+        parcel.writeString(name);
+        parcel.writeLong(type);
+        parcel.writeLong(image);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Hero> CREATOR = new Creator<Hero>() {
+
+        @Override
+        public Hero createFromParcel(Parcel parcel) {
+            return new Hero(parcel);
+        }
+
+        @Override
+        public Hero[] newArray(int size) {
+            return new Hero[size];
+        }
+    };
 
     public static final int TYPE_AGILITY = 1;
     public static final int TYPE_STRENGHT = 2;

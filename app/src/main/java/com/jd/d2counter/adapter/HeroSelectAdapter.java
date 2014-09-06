@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.jd.d2counter.R;
@@ -53,13 +54,14 @@ public class HeroSelectAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.item_hero_selection, viewGroup, false);
             assert convertView != null;
             holder.image = (ImageView) convertView.findViewById(R.id.item_hero_selection_image);
+            holder.button = (Button) convertView.findViewById(R.id.item_hero_selection_button);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.image.setOnClickListener(new HeroListener(mHeroesList.get(position)));
-
+        holder.button.setOnClickListener(new HeroListener(mHeroesList.get(position)));
         Picasso.with(mContext).load((int) mHeroesList.get(position).getImage()).placeholder(R.drawable.placeholder).into(holder.image);
 
         return convertView;
@@ -67,6 +69,7 @@ public class HeroSelectAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         ImageView image;
+        Button button;
     }
 
     private class HeroListener implements View.OnClickListener {

@@ -62,4 +62,5 @@ public class HeroListAdapter extends BaseAdapter {
         private View content;
         private ImageView image;
     }
+
 }
