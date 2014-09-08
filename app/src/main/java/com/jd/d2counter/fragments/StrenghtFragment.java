@@ -52,8 +52,19 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
 
     @Override
     public void onHeroClick(Hero hero) {
-        HomeActivity.mTeamPickList.add(hero);
-        getActivity().finish();
+        if (!containsInList(HomeActivity.mTeamPickList, hero)) {
+            HomeActivity.mTeamPickList.add(hero);
+            getActivity().finish();
+        }
+    }
+
+    private boolean containsInList(List<Hero> list, Hero hero) {
+        for (Hero aList : list) {
+            if (aList.getId() == hero.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private class DataTask extends AsyncTask<Void, Void, Void> {

@@ -41,7 +41,27 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        mHolder.teamPick01.setImageResource((int) mTeamPickList.get(0).getImage());
+        if (mTeamPickList.size() > 0) {
+            for (int i = 0; i < mTeamPickList.size(); i++) {
+                switch (i) {
+                    case 0:
+                        mHolder.teamPick01.setImageResource((int) mTeamPickList.get(i).getImage());
+                        break;
+                    case 1:
+                        mHolder.teamPick02.setImageResource((int) mTeamPickList.get(i).getImage());
+                        break;
+                    case 2:
+                        mHolder.teamPick03.setImageResource((int) mTeamPickList.get(i).getImage());
+                        break;
+                    case 3:
+                        mHolder.teamPick04.setImageResource((int) mTeamPickList.get(i).getImage());
+                        break;
+                    case 4:
+                        mHolder.teamPick05.setImageResource((int) mTeamPickList.get(i).getImage());
+                        break;
+                }
+            }
+        }
     }
 
     private void initData(){
@@ -49,6 +69,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         mDatabase.open();
         new LoadDatabase().execute();
         mTestList = new ArrayList<Hero>();
+        mTeamPickList = new ArrayList<Hero>();
     }
 
     private void initView(){
@@ -162,17 +183,15 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == mHolder.teamPick01) {
-            Random r = new Random();
-            Hero hero = mTestList.get(r.nextInt(mTestList.size() - 1));
-            mHolder.teamPick01.setImageResource((int)hero.getImage());
+            startActivity(new Intent(this, HeroSelectActivity.class));
         } else if (view == mHolder.teamPick02) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class));
         } else if (view == mHolder.teamPick03) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class));
         } else if (view == mHolder.teamPick04) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class));
         } else if (view == mHolder.teamPick05) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class));
         } else if (view == mHolder.enemyPick01) {
 
         } else if (view == mHolder.enemyPick02) {
