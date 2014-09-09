@@ -61,6 +61,29 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                         break;
                 }
             }
+
+
+        }
+        if (mEnemyPickList.size() > 0) {
+            for (int i = 0; i < mEnemyPickList.size(); i++) {
+                switch (i) {
+                    case 0:
+                        mHolder.enemyPick01.setImageResource((int) mEnemyPickList.get(i).getImage());
+                        break;
+                    case 1:
+                        mHolder.enemyPick02.setImageResource((int) mEnemyPickList.get(i).getImage());
+                        break;
+                    case 2:
+                        mHolder.enemyPick03.setImageResource((int) mEnemyPickList.get(i).getImage());
+                        break;
+                    case 3:
+                        mHolder.enemyPick04.setImageResource((int) mEnemyPickList.get(i).getImage());
+                        break;
+                    case 4:
+                        mHolder.enemyPick05.setImageResource((int) mEnemyPickList.get(i).getImage());
+                        break;
+                }
+            }
         }
     }
 
@@ -70,6 +93,8 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         new LoadDatabase().execute();
         mTestList = new ArrayList<Hero>();
         mTeamPickList = new ArrayList<Hero>();
+        mEnemyPickList = new ArrayList<Hero>();
+        mSuggestBanList = new ArrayList<Hero>();
     }
 
     private void initView(){
@@ -183,25 +208,25 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == mHolder.teamPick01) {
-            startActivity(new Intent(this, HeroSelectActivity.class));
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
         } else if (view == mHolder.teamPick02) {
-            startActivity(new Intent(this, HeroSelectActivity.class));
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
         } else if (view == mHolder.teamPick03) {
-            startActivity(new Intent(this, HeroSelectActivity.class));
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
         } else if (view == mHolder.teamPick04) {
-            startActivity(new Intent(this, HeroSelectActivity.class));
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
         } else if (view == mHolder.teamPick05) {
-            startActivity(new Intent(this, HeroSelectActivity.class));
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
         } else if (view == mHolder.enemyPick01) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_PICK));
         } else if (view == mHolder.enemyPick02) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_PICK));
         } else if (view == mHolder.enemyPick03) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_PICK));
         } else if (view == mHolder.enemyPick04) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_PICK));
         } else if (view == mHolder.enemyPick05) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_PICK));
         } else if (view == mHolder.teamBan01) {
 
         } else if (view == mHolder.teamBan02) {
@@ -287,4 +312,10 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         private ImageView suggestBan04;
         private ImageView suggestBan05;
     }
+
+    public static final int LIST_TEAM_PICK = 1;
+    public static final int LIST_ENEMY_PICK = 2;
+    public static final int LIST_TEAM_BAN = 3;
+    public static final int LIST_ENEMY_BAN = 4;
+    public static final String LIST_SELECTION = "listSelection";
 }

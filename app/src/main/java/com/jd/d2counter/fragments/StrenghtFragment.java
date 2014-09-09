@@ -1,5 +1,6 @@
 package com.jd.d2counter.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHeroClickListener{
 
+    int mIdList;
     List<Hero> list;
     ViewHolder mHolder;
     DatabaseHelper mDatabase;
@@ -38,6 +40,8 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
         list = new ArrayList<Hero>();
         mDatabase = DatabaseHelper.with(getActivity());
         mDatabase.open();
+        Intent intent = getActivity().getIntent();
+        mIdList = intent.getIntExtra(HomeActivity.LIST_SELECTION, 0);
     }
 
     private void initView(View view) {
@@ -52,9 +56,19 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
 
     @Override
     public void onHeroClick(Hero hero) {
-        if (!containsInList(HomeActivity.mTeamPickList, hero)) {
-            HomeActivity.mTeamPickList.add(hero);
-            getActivity().finish();
+        switch (mIdList) {
+            case HomeActivity.LIST_TEAM_PICK:
+                if (!containsInList(HomeActivity.mTeamPickList, hero)) {
+                    HomeActivity.mTeamPickList.add(hero);
+                    getActivity().finish();
+                }
+                break;
+            case HomeActivity.LIST_ENEMY_PICK:
+                if (!containsInList(HomeActivity.mEnemyPickList, hero)) {
+                    HomeActivity.mEnemyPickList.add(hero);
+                    getActivity().finish();
+                }
+                break;
         }
     }
 
