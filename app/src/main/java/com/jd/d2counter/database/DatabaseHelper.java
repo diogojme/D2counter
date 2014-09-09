@@ -131,6 +131,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
+
+    public List<Hero> getSuggestedBan(final long idHero) {
+        List<Hero> list = new ArrayList<Hero>();
+
+        String table[] = {"id_hero", "id_counter", "id_support", "position"};
+        //TODO duplicanddo dados sempre que roda o app de novo
+        Cursor cursor = database.query(TABLE_HERO_COUNTER, table, "id_hero = " + idHero, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(getHero(cursor.getLong(1)));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return list;
+    }
+
+
     public void insertHero() {
         addHero(0, "ABADDON", Hero.TYPE_STRENGHT, R.drawable.abaddon_vert);
         addHero(1, "ALCHEMIST", Hero.TYPE_STRENGHT, R.drawable.alchemist_vert);

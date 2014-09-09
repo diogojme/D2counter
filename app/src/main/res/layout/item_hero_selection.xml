@@ -11,13 +11,13 @@
         android:layout_height="match_parent"
         style="@style/Widget.AppCompat.ActionButton" />
 
+
     <ImageView
         android:id="@+id/item_hero_selection_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/alchemist_vert"
         android:padding="6dp"
-        android:background="@drawable/mask"
         android:adjustViewBounds="true"
         android:scaleType="fitXY" />
 
