@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.jd.d2counter.R;
+import com.jd.d2counter.activities.HomeActivity;
 import com.jd.d2counter.objects.Hero;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +29,17 @@ public class HeroSelectAdapter extends BaseAdapter {
         mListener = listener;
         mHeroesList = heroesList;
         mInflater = LayoutInflater.from(context);
+
+        if (HomeActivity.mTeamPickList != null && HomeActivity.mTeamPickList.size() != 0) {
+            for (int i = 0; i < mHeroesList.size(); i++) {
+                for (int j = 0; j < HomeActivity.mTeamPickList.size(); j++) {
+                    if (mHeroesList.get(i).getId() == HomeActivity.mTeamPickList.get(j).getId()) {
+                        mHeroesList.get(i).setPicked(true);
+                    }
+                }
+            }
+        }
+
     }
 
     @Override
@@ -53,6 +65,7 @@ public class HeroSelectAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.item_hero_selection, viewGroup, false);
             assert convertView != null;
+            holder.pickedMask = (ImageView) convertView.findViewById(R.id.image_mask);
             holder.image = (ImageView) convertView.findViewById(R.id.item_hero_selection_image);
             holder.button = (Button) convertView.findViewById(R.id.item_hero_selection_button);
 
@@ -61,6 +74,7 @@ public class HeroSelectAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        holder.pickedMask.setVisibility(mHeroesList.get(position).isPicked() ? View.VISIBLE: View.INVISIBLE);
         holder.button.setOnClickListener(new HeroListener(mHeroesList.get(position)));
         Picasso.with(mContext).load((int) mHeroesList.get(position).getImage()).placeholder(R.drawable.placeholder).into(holder.image);
 
@@ -70,6 +84,7 @@ public class HeroSelectAdapter extends BaseAdapter {
     private static class ViewHolder {
         ImageView image;
         Button button;
+        ImageView pickedMask;
     }
 
     private class HeroListener implements View.OnClickListener {

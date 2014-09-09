@@ -8,13 +8,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.jd.d2counter.R;
-import com.jd.d2counter.database.Database;
 import com.jd.d2counter.database.DatabaseHelper;
 import com.jd.d2counter.objects.Hero;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class HomeActivity extends ActionBarActivity implements View.OnClickListener {
@@ -196,8 +194,6 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
             super.onPostExecute(aVoid);
             setLoading(View.GONE);
             mTestList = mDatabase.getHeroList(Hero.TYPE_STRENGHT);
-
-
         }
     }
 
