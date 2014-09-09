@@ -8,18 +8,19 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.jd.d2counter.R;
+import com.jd.d2counter.database.Database;
 import com.jd.d2counter.database.DatabaseHelper;
 import com.jd.d2counter.objects.Hero;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class HomeActivity extends ActionBarActivity implements View.OnClickListener {
 
     public static ViewHolder mHolder;
     public static DatabaseHelper mDatabase;
-    public static List<Hero> mTestList;
     public static List<Hero> mTeamPickList;
     public static List<Hero> mEnemyPickList;
     public static List<Hero> mTeamBanList;
@@ -83,13 +84,56 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                 }
             }
         }
+        if (mTeamBanList.size() > 0) {
+            for (int i = 0; i < mTeamBanList.size(); i++) {
+                switch (i) {
+                    case 0:
+                        mHolder.teamBan01.setImageResource((int) mTeamBanList.get(i).getImage());
+                        break;
+                    case 1:
+                        mHolder.teamBan02.setImageResource((int) mTeamBanList.get(i).getImage());
+                        break;
+                    case 2:
+                        mHolder.teamBan03.setImageResource((int) mTeamBanList.get(i).getImage());
+                        break;
+                    case 3:
+                        mHolder.teamBan04.setImageResource((int) mTeamBanList.get(i).getImage());
+                        break;
+                    case 4:
+                        mHolder.teamBan05.setImageResource((int) mTeamBanList.get(i).getImage());
+                        break;
+                }
+            }
+        }
+        if (mEnemyBanList.size() > 0) {
+            for (int i = 0; i < mEnemyBanList.size(); i++) {
+                switch (i) {
+                    case 0:
+                        mHolder.enemyBan01.setImageResource((int) mEnemyBanList.get(i).getImage());
+                        break;
+                    case 1:
+                        mHolder.enemyBan02.setImageResource((int) mEnemyBanList.get(i).getImage());
+                        break;
+                    case 2:
+                        mHolder.enemyBan03.setImageResource((int) mEnemyBanList.get(i).getImage());
+                        break;
+                    case 3:
+                        mHolder.enemyBan04.setImageResource((int) mEnemyBanList.get(i).getImage());
+                        break;
+                    case 4:
+                        mHolder.enemyBan05.setImageResource((int) mEnemyBanList.get(i).getImage());
+                        break;
+                }
+            }
+        }
     }
 
     private void initData(){
         mDatabase = DatabaseHelper.with(this);
         mDatabase.open();
         new LoadDatabase().execute();
-        mTestList = new ArrayList<Hero>();
+        mTeamBanList = new ArrayList<Hero>();
+        mEnemyBanList = new ArrayList<Hero>();
         mTeamPickList = new ArrayList<Hero>();
         mEnemyPickList = new ArrayList<Hero>();
         mSuggestBanList = new ArrayList<Hero>();
@@ -179,13 +223,11 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         protected void onPreExecute() {
             super.onPreExecute();
             setLoading(View.VISIBLE);
-            mTestList = new ArrayList<Hero>();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             mDatabase.insertHero();
-//            mDatabase.insertCounter();
             return null;
         }
 
@@ -193,7 +235,8 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             setLoading(View.GONE);
-            mTestList = mDatabase.getHeroList(Hero.TYPE_STRENGHT);
+
+
         }
     }
 
@@ -204,15 +247,40 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == mHolder.teamPick01) {
-            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+            if (mTeamPickList.size() > 0) {
+                mTeamPickList.remove(0);
+                mHolder.teamPick01.setImageResource(R.color.green);
+            } else {
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+            }
         } else if (view == mHolder.teamPick02) {
-            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+            if (mTeamPickList.size() > 1) {
+                mTeamPickList.remove(1);
+                mHolder.teamPick01.setImageResource(R.color.green);
+            } else {
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+            }
         } else if (view == mHolder.teamPick03) {
-            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+            if (mTeamPickList.size() > 2) {
+                mTeamPickList.remove(2);
+                mHolder.teamPick01.setImageResource(R.color.green);
+            } else {
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+            }
         } else if (view == mHolder.teamPick04) {
-            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+            if (mTeamPickList.size() > 3) {
+                mTeamPickList.remove(3);
+                mHolder.teamPick01.setImageResource(R.color.green);
+            } else {
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+            }
         } else if (view == mHolder.teamPick05) {
-            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+            if (mTeamPickList.size() > 4) {
+                mTeamPickList.remove(4);
+                mHolder.teamPick01.setImageResource(R.color.green);
+            } else {
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+            }
         } else if (view == mHolder.enemyPick01) {
             startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_PICK));
         } else if (view == mHolder.enemyPick02) {
@@ -224,25 +292,25 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         } else if (view == mHolder.enemyPick05) {
             startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_PICK));
         } else if (view == mHolder.teamBan01) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN));
         } else if (view == mHolder.teamBan02) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN));
         } else if (view == mHolder.teamBan03) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN));
         } else if (view == mHolder.teamBan04) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN));
         } else if (view == mHolder.teamBan05) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN));
         } else if (view == mHolder.enemyBan01) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_BAN));
         } else if (view == mHolder.enemyBan02) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_BAN));
         } else if (view == mHolder.enemyBan03) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_BAN));
         } else if (view == mHolder.enemyBan04) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_BAN));
         } else if (view == mHolder.enemyBan05) {
-
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_BAN));
         } else if (view == mHolder.suggestPick01) {
 
         } else if (view == mHolder.suggestPick02) {

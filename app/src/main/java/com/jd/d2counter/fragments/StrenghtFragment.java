@@ -58,22 +58,49 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
     public void onHeroClick(Hero hero) {
         switch (mIdList) {
             case HomeActivity.LIST_TEAM_PICK:
-                if (!containsInList(HomeActivity.mTeamPickList, hero)) {
+                if (!containsInList(hero)) {
                     HomeActivity.mTeamPickList.add(hero);
                     getActivity().finish();
                 }
                 break;
             case HomeActivity.LIST_ENEMY_PICK:
-                if (!containsInList(HomeActivity.mEnemyPickList, hero)) {
+                if (!containsInList(hero)) {
                     HomeActivity.mEnemyPickList.add(hero);
+                    getActivity().finish();
+                }
+                break;
+            case HomeActivity.LIST_TEAM_BAN:
+                if (!containsInList(hero)) {
+                    HomeActivity.mTeamBanList.add(hero);
+                    getActivity().finish();
+                }
+                break;
+            case HomeActivity.LIST_ENEMY_BAN:
+                if (!containsInList(hero)) {
+                    HomeActivity.mEnemyBanList.add(hero);
                     getActivity().finish();
                 }
                 break;
         }
     }
 
-    private boolean containsInList(List<Hero> list, Hero hero) {
-        for (Hero aList : list) {
+    private boolean containsInList(Hero hero) {
+        for (Hero aList : HomeActivity.mEnemyPickList) {
+            if (aList.getId() == hero.getId()) {
+                return true;
+            }
+        }
+        for (Hero aList : HomeActivity.mTeamPickList) {
+            if (aList.getId() == hero.getId()) {
+                return true;
+            }
+        }
+        for (Hero aList : HomeActivity.mEnemyBanList) {
+            if (aList.getId() == hero.getId()) {
+                return true;
+            }
+        }
+        for (Hero aList : HomeActivity.mTeamBanList) {
             if (aList.getId() == hero.getId()) {
                 return true;
             }
