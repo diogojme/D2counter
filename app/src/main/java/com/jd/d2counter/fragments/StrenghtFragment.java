@@ -19,13 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHeroClickListener{
+public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHeroClickListener {
 
     int mIdList;
     List<Hero> list;
     ViewHolder mHolder;
     DatabaseHelper mDatabase;
     HeroSelectAdapter mAdapter;
+    int mStatus;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
         mDatabase.open();
         Intent intent = getActivity().getIntent();
         mIdList = intent.getIntExtra(HomeActivity.LIST_SELECTION, 0);
+        mStatus = intent.getIntExtra(Hero.EXTRA_STATUS_NAME, -1);
     }
 
     private void initView(View view) {
@@ -56,6 +58,8 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
 
     @Override
     public void onHeroClick(Hero hero) {
+        mDatabase.updateHeroStatus(hero.getId(), mStatus);
+
         switch (mIdList) {
             case HomeActivity.LIST_TEAM_PICK:
                 if (!containsInList(hero)) {

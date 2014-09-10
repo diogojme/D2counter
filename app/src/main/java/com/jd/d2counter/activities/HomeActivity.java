@@ -8,13 +8,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.jd.d2counter.R;
-import com.jd.d2counter.database.Database;
 import com.jd.d2counter.database.DatabaseHelper;
 import com.jd.d2counter.objects.Hero;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class HomeActivity extends ActionBarActivity implements View.OnClickListener {
@@ -128,7 +126,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         }
     }
 
-    private void initData(){
+    private void initData() {
         mDatabase = DatabaseHelper.with(this);
         mDatabase.open();
         new LoadDatabase().execute();
@@ -139,7 +137,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         mSuggestBanList = new ArrayList<Hero>();
     }
 
-    private void initView(){
+    private void initView() {
         setContentView(R.layout.activity_home);
 
         mHolder = new ViewHolder();
@@ -217,7 +215,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         mHolder.suggestPick05.setOnClickListener(this);
     }
 
-    private class LoadDatabase extends AsyncTask<Void,Void,Void>{
+    private class LoadDatabase extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -240,7 +238,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         }
     }
 
-    private void setLoading(int visibility){
+    private void setLoading(int visibility) {
         mHolder.loading.setVisibility(visibility);
     }
 
@@ -251,35 +249,35 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
                 mTeamPickList.remove(0);
                 mHolder.teamPick01.setImageResource(R.color.green);
             } else {
-                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK));
             }
         } else if (view == mHolder.teamPick02) {
             if (mTeamPickList.size() > 1) {
                 mTeamPickList.remove(1);
                 mHolder.teamPick01.setImageResource(R.color.green);
             } else {
-                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK));
             }
         } else if (view == mHolder.teamPick03) {
             if (mTeamPickList.size() > 2) {
                 mTeamPickList.remove(2);
                 mHolder.teamPick01.setImageResource(R.color.green);
             } else {
-                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK));
             }
         } else if (view == mHolder.teamPick04) {
             if (mTeamPickList.size() > 3) {
                 mTeamPickList.remove(3);
                 mHolder.teamPick01.setImageResource(R.color.green);
             } else {
-                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK));
             }
         } else if (view == mHolder.teamPick05) {
             if (mTeamPickList.size() > 4) {
                 mTeamPickList.remove(4);
                 mHolder.teamPick01.setImageResource(R.color.green);
             } else {
-                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK));
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK));
             }
         } else if (view == mHolder.enemyPick01) {
             startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_PICK));
@@ -292,15 +290,15 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         } else if (view == mHolder.enemyPick05) {
             startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_PICK));
         } else if (view == mHolder.teamBan01) {
-            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN));
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_BAN));
         } else if (view == mHolder.teamBan02) {
-            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN));
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_BAN));
         } else if (view == mHolder.teamBan03) {
-            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN));
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_BAN));
         } else if (view == mHolder.teamBan04) {
-            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN));
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_BAN));
         } else if (view == mHolder.teamBan05) {
-            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN));
+            startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_BAN).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_BAN));
         } else if (view == mHolder.enemyBan01) {
             startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_BAN));
         } else if (view == mHolder.enemyBan02) {

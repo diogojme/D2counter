@@ -1,15 +1,16 @@
 package com.jd.d2counter.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jd.d2counter.R;
-import com.jd.d2counter.activities.HomeActivity;
 import com.jd.d2counter.objects.Hero;
 import com.squareup.picasso.Picasso;
 
@@ -29,17 +30,6 @@ public class HeroSelectAdapter extends BaseAdapter {
         mListener = listener;
         mHeroesList = heroesList;
         mInflater = LayoutInflater.from(context);
-
-        if (HomeActivity.mTeamPickList != null && HomeActivity.mTeamPickList.size() != 0) {
-            for (int i = 0; i < mHeroesList.size(); i++) {
-                for (int j = 0; j < HomeActivity.mTeamPickList.size(); j++) {
-                    if (mHeroesList.get(i).getId() == HomeActivity.mTeamPickList.get(j).getId()) {
-                        mHeroesList.get(i).setPicked(true);
-                    }
-                }
-            }
-        }
-
     }
 
     @Override
@@ -65,7 +55,7 @@ public class HeroSelectAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.item_hero_selection, viewGroup, false);
             assert convertView != null;
-            holder.pickedMask = (ImageView) convertView.findViewById(R.id.image_mask);
+            holder.status = (TextView) convertView.findViewById(R.id.item_hero_selection_text_status);
             holder.image = (ImageView) convertView.findViewById(R.id.item_hero_selection_image);
             holder.button = (Button) convertView.findViewById(R.id.item_hero_selection_button);
 
@@ -74,9 +64,30 @@ public class HeroSelectAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.pickedMask.setVisibility(mHeroesList.get(position).isPicked() ? View.VISIBLE: View.INVISIBLE);
-        holder.button.setOnClickListener(new HeroListener(mHeroesList.get(position)));
-        Picasso.with(mContext).load((int) mHeroesList.get(position).getImage()).placeholder(R.drawable.placeholder).into(holder.image);
+        Hero hero = mHeroesList.get(position);
+
+        if(hero.getStatus() == Hero.STATUS_ENEMY_PICK){
+            holder.status.setText("Picked");
+            holder.status.setTextColor(Color.parseColor("#259b24"));
+        }else if(hero.getStatus() == Hero.STATUS_MY_PICK){
+            holder.status.setText("Picked");
+            holder.status.setTextColor(Color.parseColor("#259b24"));
+        }else if(hero.getStatus() == Hero.STATUS_MY_BAN){
+            holder.status.setText("Ban");
+            holder.status.setTextColor(Color.parseColor("#b52525"));
+        }else if(hero.getStatus() == Hero.STATUS_ENEMY_BAN){
+            holder.status.setText("Ban");
+            holder.status.setTextColor(Color.parseColor("#b52525"));
+        }else if(hero.getStatus() == Hero.STATUS_SUGGESTION_BAN){
+            holder.status.setText("Suggested to ban");
+            holder.status.setTextColor(Color.parseColor("#266666"));
+        }else if(hero.getStatus() == Hero.STATUS_SUGGESTION_PICK){
+            holder.status.setText("Suggested to pick");
+            holder.status.setTextColor(Color.parseColor("#232324"));
+        }
+
+        holder.button.setOnClickListener(new HeroListener(hero));
+        Picasso.with(mContext).load((int) hero.getImage()).placeholder(R.drawable.placeholder).into(holder.image);
 
         return convertView;
     }
@@ -84,7 +95,7 @@ public class HeroSelectAdapter extends BaseAdapter {
     private static class ViewHolder {
         ImageView image;
         Button button;
-        ImageView pickedMask;
+        TextView status;
     }
 
     private class HeroListener implements View.OnClickListener {

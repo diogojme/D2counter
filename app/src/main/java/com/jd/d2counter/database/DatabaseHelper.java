@@ -1,5 +1,6 @@
 package com.jd.d2counter.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,7 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase database;
     private static DatabaseHelper instance;
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "dota.database";
 
     private DatabaseHelper(Context context) {
@@ -32,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HERO + " (id long primary key, name TEXT NOT NULL, type int not null, image int not null)");
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HERO + " (id long primary key, name TEXT NOT NULL, type int not null, image int not null, status int not null)");
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HERO_COUNTER + " (id_hero long NOT NULL, id_counter LONG NOT NULL, id_support LONG NOT NULL, position INT NOT NULL)");
     }
 
@@ -53,25 +54,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     deleteCounters();
                     insertHero();
                     insertCounter();
-                    getSuggestedPick(5);
                 }
             }).start();
-
         }
     }
 
-    private void deleteHeros(){
-        String sql = "DELETE FROM " + TABLE_HERO ;
+    private void deleteHeros() {
+        String sql = "DELETE FROM " + TABLE_HERO;
         database.execSQL(sql);
     }
 
-    private void deleteCounters(){
-        String sql = "DELETE FROM " + TABLE_HERO_COUNTER ;
+    private void deleteCounters() {
+        String sql = "DELETE FROM " + TABLE_HERO_COUNTER;
         database.execSQL(sql);
     }
 
-    private void addHero(long id, String name, int type, int image) {
-        String sql = "INSERT OR REPLACE INTO " + TABLE_HERO + " (id,name,type,image) VALUES('" + id + "','" + name + "','" + type + "','" + image + "')";
+    private void addHero(long id, String name, int type, int image, int status) {
+        String sql = "INSERT OR REPLACE INTO " + TABLE_HERO + " (id,name,type,image,status) VALUES('" + id + "','" + name + "','" + type + "','" + image + "','" + status + "')";
         database.execSQL(sql);
     }
 
@@ -80,13 +79,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(sql);
     }
 
+    public void updateHeroStatus(long idHero, int status) {
+        String strFilter = "id = " + idHero;
+        ContentValues args = new ContentValues();
+        args.put("status", status);
+        database.update(TABLE_HERO, args, strFilter, null);
+    }
+
     public Hero getHero(long idHero) {
         Hero hero = null;
         String selectQuery = "SELECT * FROM " + TABLE_HERO + " WHERE id = ?";
         Cursor cursor = database.rawQuery(selectQuery, new String[]{String.valueOf(idHero)});
 
         if (cursor.moveToFirst()) {
-            hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3));
+            hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
         }
 
         cursor.close();
@@ -94,14 +100,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Hero> getHeroList(int type) {
-        String table[] = {"id", "name", "type", "image"};
+        String table[] = {"id", "name", "type", "image", "status"};
         Cursor cursor = database.query(TABLE_HERO, table, "type = " + type, null, null, null, null);
         System.out.println(cursor.getCount());
         List<Hero> list = new ArrayList<Hero>();
 
         if (cursor.moveToFirst()) {
             do {
-                Hero hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3));
+                Hero hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
                 list.add(hero);
             } while (cursor.moveToNext());
         }
@@ -109,30 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public List<Hero> getSuggestedPick(final long idHero) {
-        List<Hero> list = new ArrayList<Hero>();
-
-        String table[] = {"id_hero", "id_counter", "id_support", "position"};
-        //TODO duplicanddo dados sempre que roda o app de novo
-        Cursor cursor = database.query(TABLE_HERO_COUNTER, table, "id_hero = " + idHero, null, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                list.add(getHero(cursor.getLong(1)));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-
-        return list;
-    }
-
-    public List<Hero> getSuggestedPick(final List<Hero> listHero) {
-        return null;
-    }
-
-
-    public List<Hero> getSuggestedBan(final long idHero) {
+    public List<Hero> getSuggestedPickList(final long idHero) {
         List<Hero> list = new ArrayList<Hero>();
 
         String table[] = {"id_hero", "id_counter", "id_support", "position"};
@@ -152,112 +135,112 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public void insertHero() {
-        addHero(0, "ABADDON", Hero.TYPE_STRENGHT, R.drawable.abaddon_vert);
-        addHero(1, "ALCHEMIST", Hero.TYPE_STRENGHT, R.drawable.alchemist_vert);
-        addHero(2, "ANCIENT APPARITION", Hero.TYPE_INTELIGENCE, R.drawable.ancient_apparition_vert);
-        addHero(3, "ANTI MAGE", Hero.TYPE_AGILITY, R.drawable.antimage_vert);
-        addHero(4, "AXE", Hero.TYPE_STRENGHT, R.drawable.axe_vert);
-        addHero(5, "BANE", Hero.TYPE_INTELIGENCE, R.drawable.bane_vert);
-        addHero(6, "BATRIDER", Hero.TYPE_INTELIGENCE, R.drawable.batrider_vert);
-        addHero(7, "BEAST MASTER", Hero.TYPE_STRENGHT, R.drawable.beastmaster_vert);
-        addHero(8, "BLOODSEEKER", Hero.TYPE_AGILITY, R.drawable.bloodseeker_vert);
-        addHero(9, "BOUNTY HUNTER", Hero.TYPE_AGILITY, R.drawable.bounty_hunter_vert);
-        addHero(10, "BREWMASTER", Hero.TYPE_STRENGHT, R.drawable.brewmaster_vert);
-        addHero(11, "BRISTLEBACK", Hero.TYPE_STRENGHT, R.drawable.bristleback_vert);
-        addHero(12, "CENTAUR WARRUNNER", Hero.TYPE_STRENGHT, R.drawable.centaur_vert);
-        addHero(13, "CHAOS KNIGHT", Hero.TYPE_STRENGHT, R.drawable.chaos_knight_vert);
-        addHero(14, "CHEN", Hero.TYPE_INTELIGENCE, R.drawable.chen_vert);
-        addHero(15, "CLINCKZ", Hero.TYPE_AGILITY, R.drawable.clinkz_vert);
-        addHero(16, "CLOCKWERK", Hero.TYPE_STRENGHT, R.drawable.rattletrap_vert);
-        addHero(17, "CRYSTAL MAIDEN", Hero.TYPE_INTELIGENCE, R.drawable.crystal_maiden_vert);
-        addHero(18, "DARK SEER", Hero.TYPE_INTELIGENCE, R.drawable.dark_seer_vert);
-        addHero(19, "DAZZLE", Hero.TYPE_INTELIGENCE, R.drawable.dazzle_vert);
-        addHero(20, "DEATH PROPHET", Hero.TYPE_INTELIGENCE, R.drawable.death_prophet_vert);
-        addHero(21, "DISRUPTOR", Hero.TYPE_INTELIGENCE, R.drawable.disruptor_vert);
-        addHero(22, "DOOM BRINGER", Hero.TYPE_STRENGHT, R.drawable.doom_bringer_vert);
-        addHero(23, "DRAGON KNIGHT", Hero.TYPE_STRENGHT, R.drawable.dragon_knight_vert);
-        addHero(24, "DROW RANGER", Hero.TYPE_AGILITY, R.drawable.drow_ranger_vert);
-        addHero(25, "EARTHSHAKER", Hero.TYPE_STRENGHT, R.drawable.earth_spirit_vert);
-        addHero(26, "ELDER TITAN", Hero.TYPE_STRENGHT, R.drawable.elder_titan_vert);
-        addHero(27, "ENCHANTRESS", Hero.TYPE_INTELIGENCE, R.drawable.enchantress_vert);
-        addHero(28, "ENIGMA", Hero.TYPE_INTELIGENCE, R.drawable.enigma_vert);
-        addHero(29, "FACELESS VOID", Hero.TYPE_AGILITY, R.drawable.faceless_void_vert);
-        addHero(30, "GYROCOPTER", Hero.TYPE_AGILITY, R.drawable.gyrocopter_vert);
-        addHero(31, "HUSKAR", Hero.TYPE_STRENGHT, R.drawable.huskar_vert);
-        addHero(32, "INVOKER", Hero.TYPE_INTELIGENCE, R.drawable.invoker_vert);
-        addHero(33, "IO", Hero.TYPE_STRENGHT, R.drawable.wisp_vert);
-        addHero(34, "JAKIRO", Hero.TYPE_INTELIGENCE, R.drawable.jakiro_vert);
-        addHero(35, "JUGGERNAUT", Hero.TYPE_AGILITY, R.drawable.juggernaut_vert);
-        addHero(36, "KEEPER OF THE LIGHT", Hero.TYPE_INTELIGENCE, R.drawable.keeper_of_the_light_vert);
-        addHero(37, "KUNKKA", Hero.TYPE_STRENGHT, R.drawable.kunkka_vert);
-        addHero(38, "LESHRAK", Hero.TYPE_INTELIGENCE, R.drawable.leshrac_vert);
-        addHero(39, "LICH", Hero.TYPE_INTELIGENCE, R.drawable.lich_vert);
-        addHero(40, "LIFESTEALER", Hero.TYPE_STRENGHT, R.drawable.life_stealer_vert);
-        addHero(41, "LINA", Hero.TYPE_INTELIGENCE, R.drawable.lina_vert);
-        addHero(42, "LION", Hero.TYPE_INTELIGENCE, R.drawable.lion_vert);
-        addHero(43, "LONE DRUID", Hero.TYPE_AGILITY, R.drawable.lone_druid_vert);
-        addHero(44, "LUNA", Hero.TYPE_AGILITY, R.drawable.luna_vert);
-        addHero(45, "LYCANTROPE", Hero.TYPE_STRENGHT, R.drawable.lycan_vert);
-        addHero(46, "MAGNUS", Hero.TYPE_STRENGHT, R.drawable.magnataur_vert);
-        addHero(47, "MEDUSA", Hero.TYPE_AGILITY, R.drawable.medusa_vert);
-        addHero(48, "MEEPO", Hero.TYPE_AGILITY, R.drawable.meepo_vert);
-        addHero(49, "MIRANA", Hero.TYPE_AGILITY, R.drawable.mirana_vert);
-        addHero(50, "MORPHLING", Hero.TYPE_AGILITY, R.drawable.morphling_vert);
-        addHero(51, "NAGA SIREN", Hero.TYPE_AGILITY, R.drawable.naga_siren_vert);
-        addHero(52, "NATURES PROPHET", Hero.TYPE_INTELIGENCE, R.drawable.furion_vert);
-        addHero(53, "NECROPHOS", Hero.TYPE_INTELIGENCE, R.drawable.necrolyte_vert);
-        addHero(54, "NIGHT STALKER", Hero.TYPE_STRENGHT, R.drawable.night_stalker_vert);
-        addHero(55, "NYX ASSASSIN", Hero.TYPE_AGILITY, R.drawable.nyx_assassin_vert);
-        addHero(56, "OGRE MAGI", Hero.TYPE_INTELIGENCE, R.drawable.ogre_magi_vert);
-        addHero(57, "OMNIKNIGHT", Hero.TYPE_STRENGHT, R.drawable.omniknight_vert);
-        addHero(58, "OUTWOLRD DEVOURER", Hero.TYPE_INTELIGENCE, R.drawable.obsidian_destroyer_vert);
-        addHero(59, "PHANTON ASSASSIN", Hero.TYPE_AGILITY, R.drawable.phantom_assassin_vert);
-        addHero(60, "PHANTOM LANCER ", Hero.TYPE_AGILITY, R.drawable.phantom_lancer_vert);
-        addHero(61, "PUCK", Hero.TYPE_INTELIGENCE, R.drawable.puck_vert);
-        addHero(62, "PUDGE", Hero.TYPE_STRENGHT, R.drawable.pudge_vert);
-        addHero(63, "QUEEN OF PAIN", Hero.TYPE_INTELIGENCE, R.drawable.queenofpain_vert);
-        addHero(64, "RAZOR", Hero.TYPE_AGILITY, R.drawable.razor_vert);
-        addHero(65, "RIKI", Hero.TYPE_AGILITY, R.drawable.riki_vert);
-        addHero(66, "RUBICK", Hero.TYPE_INTELIGENCE, R.drawable.rubick_vert);
-        addHero(67, "SAND KING", Hero.TYPE_STRENGHT, R.drawable.sand_king_vert);
-        addHero(68, "SHADOW DEMON", Hero.TYPE_INTELIGENCE, R.drawable.shadow_demon_vert);
-        addHero(69, "SHADOW FIEND", Hero.TYPE_AGILITY, R.drawable.nevermore_vert);
-        addHero(70, "SHADOW SHAMAN", Hero.TYPE_INTELIGENCE, R.drawable.shadow_shaman_vert);
-        addHero(71, "SILENCER", Hero.TYPE_INTELIGENCE, R.drawable.silencer_vert);
-        addHero(72, "SKYWRATH MAGE", Hero.TYPE_AGILITY, R.drawable.skywrath_mage_vert);
-        addHero(73, "SLARDAR", Hero.TYPE_STRENGHT, R.drawable.slardar_vert);
-        addHero(74, "SLARK", Hero.TYPE_AGILITY, R.drawable.slark_vert);
-        addHero(75, "SNIPER", Hero.TYPE_AGILITY, R.drawable.sniper_vert);
-        addHero(76, "SPECTRE", Hero.TYPE_AGILITY, R.drawable.spectre_vert);
-        addHero(77, "SPIRIT BREAKER", Hero.TYPE_STRENGHT, R.drawable.spirit_breaker_vert);
-        addHero(78, "STORM SPIRIT", Hero.TYPE_INTELIGENCE, R.drawable.storm_spirit_vert);
-        addHero(79, "SVEN", Hero.TYPE_STRENGHT, R.drawable.sven_vert);
-        addHero(80, "TEMPLAR ASSASSIN ", Hero.TYPE_AGILITY, R.drawable.templar_assassin_vert);
-        addHero(81, "TIDE HUNTER", Hero.TYPE_STRENGHT, R.drawable.tidehunter_vert);
-        addHero(82, "TIMBERSAW", Hero.TYPE_STRENGHT, R.drawable.shredder_vert);
-        addHero(83, "TINKER", Hero.TYPE_STRENGHT, R.drawable.tinker_vert);
-        addHero(84, "TINY", Hero.TYPE_STRENGHT, R.drawable.tiny_vert);
-        addHero(85, "TREANT PROTECTOR", Hero.TYPE_STRENGHT, R.drawable.treant_vert);
-        addHero(86, "TROLL WARLORD ", Hero.TYPE_AGILITY, R.drawable.troll_warlord_vert);
-        addHero(87, "TUSK", Hero.TYPE_STRENGHT, R.drawable.tusk_vert);
-        addHero(88, "UNDYING", Hero.TYPE_STRENGHT, R.drawable.undying_vert);
-        addHero(89, "URSA", Hero.TYPE_AGILITY, R.drawable.ursa_vert);
-        addHero(90, "VENGEFUL SPIRIT", Hero.TYPE_AGILITY, R.drawable.vengefulspirit_vert);
-        addHero(91, "VENOMANCER", Hero.TYPE_AGILITY, R.drawable.venomancer_vert);
-        addHero(92, "VIPER ", Hero.TYPE_AGILITY, R.drawable.viper_vert);
-        addHero(93, "VISAGE", Hero.TYPE_INTELIGENCE, R.drawable.visage_vert);
-        addHero(94, "WARLOCK", Hero.TYPE_INTELIGENCE, R.drawable.warlock_vert);
-        addHero(95, "WEAVER", Hero.TYPE_AGILITY, R.drawable.weaver_vert);
-        addHero(96, "WINDRANGER", Hero.TYPE_INTELIGENCE, R.drawable.windrunner_vert);
-        addHero(97, "WITCH DOCTOR", Hero.TYPE_INTELIGENCE, R.drawable.witch_doctor_vert);
-        addHero(98, "WRATH KING", Hero.TYPE_STRENGHT, R.drawable.skeleton_king_vert);
-        addHero(99, "ZEUS", Hero.TYPE_INTELIGENCE, R.drawable.zuus_vert);
-        addHero(100, "EARTH SPIRIT", Hero.TYPE_STRENGHT, R.drawable.earth_spirit_vert);
-        addHero(101, "EMBER SPIRIT", Hero.TYPE_STRENGHT, R.drawable.ember_spirit_vert);
-        addHero(102, "TERRORBLADE", Hero.TYPE_AGILITY, R.drawable.terrorblade_vert);
-        addHero(103, "PHOENIX", Hero.TYPE_STRENGHT, R.drawable.phoenix_vert);
-        addHero(104, "LEGION COMMANDER", Hero.TYPE_STRENGHT, R.drawable.legion_commander_vert);
-        addHero(105, "BROODMOTHER", Hero.TYPE_AGILITY, R.drawable.broodmother_vert);
+        addHero(0, "ABADDON", Hero.TYPE_STRENGHT, R.drawable.abaddon_vert, Hero.STATUS_NOTHING);
+        addHero(1, "ALCHEMIST", Hero.TYPE_STRENGHT, R.drawable.alchemist_vert, Hero.STATUS_NOTHING);
+        addHero(2, "ANCIENT APPARITION", Hero.TYPE_INTELIGENCE, R.drawable.ancient_apparition_vert, Hero.STATUS_NOTHING);
+        addHero(3, "ANTI MAGE", Hero.TYPE_AGILITY, R.drawable.antimage_vert, Hero.STATUS_NOTHING);
+        addHero(4, "AXE", Hero.TYPE_STRENGHT, R.drawable.axe_vert, Hero.STATUS_NOTHING);
+        addHero(5, "BANE", Hero.TYPE_INTELIGENCE, R.drawable.bane_vert, Hero.STATUS_NOTHING);
+        addHero(6, "BATRIDER", Hero.TYPE_INTELIGENCE, R.drawable.batrider_vert, Hero.STATUS_NOTHING);
+        addHero(7, "BEAST MASTER", Hero.TYPE_STRENGHT, R.drawable.beastmaster_vert, Hero.STATUS_NOTHING);
+        addHero(8, "BLOODSEEKER", Hero.TYPE_AGILITY, R.drawable.bloodseeker_vert, Hero.STATUS_NOTHING);
+        addHero(9, "BOUNTY HUNTER", Hero.TYPE_AGILITY, R.drawable.bounty_hunter_vert, Hero.STATUS_NOTHING);
+        addHero(10, "BREWMASTER", Hero.TYPE_STRENGHT, R.drawable.brewmaster_vert, Hero.STATUS_NOTHING);
+        addHero(11, "BRISTLEBACK", Hero.TYPE_STRENGHT, R.drawable.bristleback_vert, Hero.STATUS_NOTHING);
+        addHero(12, "CENTAUR WARRUNNER", Hero.TYPE_STRENGHT, R.drawable.centaur_vert, Hero.STATUS_NOTHING);
+        addHero(13, "CHAOS KNIGHT", Hero.TYPE_STRENGHT, R.drawable.chaos_knight_vert, Hero.STATUS_NOTHING);
+        addHero(14, "CHEN", Hero.TYPE_INTELIGENCE, R.drawable.chen_vert, Hero.STATUS_NOTHING);
+        addHero(15, "CLINCKZ", Hero.TYPE_AGILITY, R.drawable.clinkz_vert, Hero.STATUS_NOTHING);
+        addHero(16, "CLOCKWERK", Hero.TYPE_STRENGHT, R.drawable.rattletrap_vert, Hero.STATUS_NOTHING);
+        addHero(17, "CRYSTAL MAIDEN", Hero.TYPE_INTELIGENCE, R.drawable.crystal_maiden_vert, Hero.STATUS_NOTHING);
+        addHero(18, "DARK SEER", Hero.TYPE_INTELIGENCE, R.drawable.dark_seer_vert, Hero.STATUS_NOTHING);
+        addHero(19, "DAZZLE", Hero.TYPE_INTELIGENCE, R.drawable.dazzle_vert, Hero.STATUS_NOTHING);
+        addHero(20, "DEATH PROPHET", Hero.TYPE_INTELIGENCE, R.drawable.death_prophet_vert, Hero.STATUS_NOTHING);
+        addHero(21, "DISRUPTOR", Hero.TYPE_INTELIGENCE, R.drawable.disruptor_vert, Hero.STATUS_NOTHING);
+        addHero(22, "DOOM BRINGER", Hero.TYPE_STRENGHT, R.drawable.doom_bringer_vert, Hero.STATUS_NOTHING);
+        addHero(23, "DRAGON KNIGHT", Hero.TYPE_STRENGHT, R.drawable.dragon_knight_vert, Hero.STATUS_NOTHING);
+        addHero(24, "DROW RANGER", Hero.TYPE_AGILITY, R.drawable.drow_ranger_vert, Hero.STATUS_NOTHING);
+        addHero(25, "EARTHSHAKER", Hero.TYPE_STRENGHT, R.drawable.earth_spirit_vert, Hero.STATUS_NOTHING);
+        addHero(26, "ELDER TITAN", Hero.TYPE_STRENGHT, R.drawable.elder_titan_vert, Hero.STATUS_NOTHING);
+        addHero(27, "ENCHANTRESS", Hero.TYPE_INTELIGENCE, R.drawable.enchantress_vert, Hero.STATUS_NOTHING);
+        addHero(28, "ENIGMA", Hero.TYPE_INTELIGENCE, R.drawable.enigma_vert, Hero.STATUS_NOTHING);
+        addHero(29, "FACELESS VOID", Hero.TYPE_AGILITY, R.drawable.faceless_void_vert, Hero.STATUS_NOTHING);
+        addHero(30, "GYROCOPTER", Hero.TYPE_AGILITY, R.drawable.gyrocopter_vert, Hero.STATUS_NOTHING);
+        addHero(31, "HUSKAR", Hero.TYPE_STRENGHT, R.drawable.huskar_vert, Hero.STATUS_NOTHING);
+        addHero(32, "INVOKER", Hero.TYPE_INTELIGENCE, R.drawable.invoker_vert, Hero.STATUS_NOTHING);
+        addHero(33, "IO", Hero.TYPE_STRENGHT, R.drawable.wisp_vert, Hero.STATUS_NOTHING);
+        addHero(34, "JAKIRO", Hero.TYPE_INTELIGENCE, R.drawable.jakiro_vert, Hero.STATUS_NOTHING);
+        addHero(35, "JUGGERNAUT", Hero.TYPE_AGILITY, R.drawable.juggernaut_vert, Hero.STATUS_NOTHING);
+        addHero(36, "KEEPER OF THE LIGHT", Hero.TYPE_INTELIGENCE, R.drawable.keeper_of_the_light_vert, Hero.STATUS_NOTHING);
+        addHero(37, "KUNKKA", Hero.TYPE_STRENGHT, R.drawable.kunkka_vert, Hero.STATUS_NOTHING);
+        addHero(38, "LESHRAK", Hero.TYPE_INTELIGENCE, R.drawable.leshrac_vert, Hero.STATUS_NOTHING);
+        addHero(39, "LICH", Hero.TYPE_INTELIGENCE, R.drawable.lich_vert, Hero.STATUS_NOTHING);
+        addHero(40, "LIFESTEALER", Hero.TYPE_STRENGHT, R.drawable.life_stealer_vert, Hero.STATUS_NOTHING);
+        addHero(41, "LINA", Hero.TYPE_INTELIGENCE, R.drawable.lina_vert, Hero.STATUS_NOTHING);
+        addHero(42, "LION", Hero.TYPE_INTELIGENCE, R.drawable.lion_vert, Hero.STATUS_NOTHING);
+        addHero(43, "LONE DRUID", Hero.TYPE_AGILITY, R.drawable.lone_druid_vert, Hero.STATUS_NOTHING);
+        addHero(44, "LUNA", Hero.TYPE_AGILITY, R.drawable.luna_vert, Hero.STATUS_NOTHING);
+        addHero(45, "LYCANTROPE", Hero.TYPE_STRENGHT, R.drawable.lycan_vert, Hero.STATUS_NOTHING);
+        addHero(46, "MAGNUS", Hero.TYPE_STRENGHT, R.drawable.magnataur_vert, Hero.STATUS_NOTHING);
+        addHero(47, "MEDUSA", Hero.TYPE_AGILITY, R.drawable.medusa_vert, Hero.STATUS_NOTHING);
+        addHero(48, "MEEPO", Hero.TYPE_AGILITY, R.drawable.meepo_vert, Hero.STATUS_NOTHING);
+        addHero(49, "MIRANA", Hero.TYPE_AGILITY, R.drawable.mirana_vert, Hero.STATUS_NOTHING);
+        addHero(50, "MORPHLING", Hero.TYPE_AGILITY, R.drawable.morphling_vert, Hero.STATUS_NOTHING);
+        addHero(51, "NAGA SIREN", Hero.TYPE_AGILITY, R.drawable.naga_siren_vert, Hero.STATUS_NOTHING);
+        addHero(52, "NATURES PROPHET", Hero.TYPE_INTELIGENCE, R.drawable.furion_vert, Hero.STATUS_NOTHING);
+        addHero(53, "NECROPHOS", Hero.TYPE_INTELIGENCE, R.drawable.necrolyte_vert, Hero.STATUS_NOTHING);
+        addHero(54, "NIGHT STALKER", Hero.TYPE_STRENGHT, R.drawable.night_stalker_vert, Hero.STATUS_NOTHING);
+        addHero(55, "NYX ASSASSIN", Hero.TYPE_AGILITY, R.drawable.nyx_assassin_vert, Hero.STATUS_NOTHING);
+        addHero(56, "OGRE MAGI", Hero.TYPE_INTELIGENCE, R.drawable.ogre_magi_vert, Hero.STATUS_NOTHING);
+        addHero(57, "OMNIKNIGHT", Hero.TYPE_STRENGHT, R.drawable.omniknight_vert, Hero.STATUS_NOTHING);
+        addHero(58, "OUTWOLRD DEVOURER", Hero.TYPE_INTELIGENCE, R.drawable.obsidian_destroyer_vert, Hero.STATUS_NOTHING);
+        addHero(59, "PHANTON ASSASSIN", Hero.TYPE_AGILITY, R.drawable.phantom_assassin_vert, Hero.STATUS_NOTHING);
+        addHero(60, "PHANTOM LANCER ", Hero.TYPE_AGILITY, R.drawable.phantom_lancer_vert, Hero.STATUS_NOTHING);
+        addHero(61, "PUCK", Hero.TYPE_INTELIGENCE, R.drawable.puck_vert, Hero.STATUS_NOTHING);
+        addHero(62, "PUDGE", Hero.TYPE_STRENGHT, R.drawable.pudge_vert, Hero.STATUS_NOTHING);
+        addHero(63, "QUEEN OF PAIN", Hero.TYPE_INTELIGENCE, R.drawable.queenofpain_vert, Hero.STATUS_NOTHING);
+        addHero(64, "RAZOR", Hero.TYPE_AGILITY, R.drawable.razor_vert, Hero.STATUS_NOTHING);
+        addHero(65, "RIKI", Hero.TYPE_AGILITY, R.drawable.riki_vert, Hero.STATUS_NOTHING);
+        addHero(66, "RUBICK", Hero.TYPE_INTELIGENCE, R.drawable.rubick_vert, Hero.STATUS_NOTHING);
+        addHero(67, "SAND KING", Hero.TYPE_STRENGHT, R.drawable.sand_king_vert, Hero.STATUS_NOTHING);
+        addHero(68, "SHADOW DEMON", Hero.TYPE_INTELIGENCE, R.drawable.shadow_demon_vert, Hero.STATUS_NOTHING);
+        addHero(69, "SHADOW FIEND", Hero.TYPE_AGILITY, R.drawable.nevermore_vert, Hero.STATUS_NOTHING);
+        addHero(70, "SHADOW SHAMAN", Hero.TYPE_INTELIGENCE, R.drawable.shadow_shaman_vert, Hero.STATUS_NOTHING);
+        addHero(71, "SILENCER", Hero.TYPE_INTELIGENCE, R.drawable.silencer_vert, Hero.STATUS_NOTHING);
+        addHero(72, "SKYWRATH MAGE", Hero.TYPE_AGILITY, R.drawable.skywrath_mage_vert, Hero.STATUS_NOTHING);
+        addHero(73, "SLARDAR", Hero.TYPE_STRENGHT, R.drawable.slardar_vert, Hero.STATUS_NOTHING);
+        addHero(74, "SLARK", Hero.TYPE_AGILITY, R.drawable.slark_vert, Hero.STATUS_NOTHING);
+        addHero(75, "SNIPER", Hero.TYPE_AGILITY, R.drawable.sniper_vert, Hero.STATUS_NOTHING);
+        addHero(76, "SPECTRE", Hero.TYPE_AGILITY, R.drawable.spectre_vert, Hero.STATUS_NOTHING);
+        addHero(77, "SPIRIT BREAKER", Hero.TYPE_STRENGHT, R.drawable.spirit_breaker_vert, Hero.STATUS_NOTHING);
+        addHero(78, "STORM SPIRIT", Hero.TYPE_INTELIGENCE, R.drawable.storm_spirit_vert, Hero.STATUS_NOTHING);
+        addHero(79, "SVEN", Hero.TYPE_STRENGHT, R.drawable.sven_vert, Hero.STATUS_NOTHING);
+        addHero(80, "TEMPLAR ASSASSIN ", Hero.TYPE_AGILITY, R.drawable.templar_assassin_vert, Hero.STATUS_NOTHING);
+        addHero(81, "TIDE HUNTER", Hero.TYPE_STRENGHT, R.drawable.tidehunter_vert, Hero.STATUS_NOTHING);
+        addHero(82, "TIMBERSAW", Hero.TYPE_STRENGHT, R.drawable.shredder_vert, Hero.STATUS_NOTHING);
+        addHero(83, "TINKER", Hero.TYPE_STRENGHT, R.drawable.tinker_vert, Hero.STATUS_NOTHING);
+        addHero(84, "TINY", Hero.TYPE_STRENGHT, R.drawable.tiny_vert, Hero.STATUS_NOTHING);
+        addHero(85, "TREANT PROTECTOR", Hero.TYPE_STRENGHT, R.drawable.treant_vert, Hero.STATUS_NOTHING);
+        addHero(86, "TROLL WARLORD ", Hero.TYPE_AGILITY, R.drawable.troll_warlord_vert, Hero.STATUS_NOTHING);
+        addHero(87, "TUSK", Hero.TYPE_STRENGHT, R.drawable.tusk_vert, Hero.STATUS_NOTHING);
+        addHero(88, "UNDYING", Hero.TYPE_STRENGHT, R.drawable.undying_vert, Hero.STATUS_NOTHING);
+        addHero(89, "URSA", Hero.TYPE_AGILITY, R.drawable.ursa_vert, Hero.STATUS_NOTHING);
+        addHero(90, "VENGEFUL SPIRIT", Hero.TYPE_AGILITY, R.drawable.vengefulspirit_vert, Hero.STATUS_NOTHING);
+        addHero(91, "VENOMANCER", Hero.TYPE_AGILITY, R.drawable.venomancer_vert, Hero.STATUS_NOTHING);
+        addHero(92, "VIPER ", Hero.TYPE_AGILITY, R.drawable.viper_vert, Hero.STATUS_NOTHING);
+        addHero(93, "VISAGE", Hero.TYPE_INTELIGENCE, R.drawable.visage_vert, Hero.STATUS_NOTHING);
+        addHero(94, "WARLOCK", Hero.TYPE_INTELIGENCE, R.drawable.warlock_vert, Hero.STATUS_NOTHING);
+        addHero(95, "WEAVER", Hero.TYPE_AGILITY, R.drawable.weaver_vert, Hero.STATUS_NOTHING);
+        addHero(96, "WINDRANGER", Hero.TYPE_INTELIGENCE, R.drawable.windrunner_vert, Hero.STATUS_NOTHING);
+        addHero(97, "WITCH DOCTOR", Hero.TYPE_INTELIGENCE, R.drawable.witch_doctor_vert, Hero.STATUS_NOTHING);
+        addHero(98, "WRATH KING", Hero.TYPE_STRENGHT, R.drawable.skeleton_king_vert, Hero.STATUS_NOTHING);
+        addHero(99, "ZEUS", Hero.TYPE_INTELIGENCE, R.drawable.zuus_vert, Hero.STATUS_NOTHING);
+        addHero(100, "EARTH SPIRIT", Hero.TYPE_STRENGHT, R.drawable.earth_spirit_vert, Hero.STATUS_NOTHING);
+        addHero(101, "EMBER SPIRIT", Hero.TYPE_STRENGHT, R.drawable.ember_spirit_vert, Hero.STATUS_NOTHING);
+        addHero(102, "TERRORBLADE", Hero.TYPE_AGILITY, R.drawable.terrorblade_vert, Hero.STATUS_NOTHING);
+        addHero(103, "PHOENIX", Hero.TYPE_STRENGHT, R.drawable.phoenix_vert, Hero.STATUS_NOTHING);
+        addHero(104, "LEGION COMMANDER", Hero.TYPE_STRENGHT, R.drawable.legion_commander_vert, Hero.STATUS_NOTHING);
+        addHero(105, "BROODMOTHER", Hero.TYPE_AGILITY, R.drawable.broodmother_vert, Hero.STATUS_NOTHING);
         System.out.println("Herois inseridos!");
     }
 
@@ -334,7 +317,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         System.out.println("Counters inseridos com sucesso!");
 
     }
-
 
     private static String TABLE_HERO = "hero";
     private static String TABLE_HERO_COUNTER = "counter";

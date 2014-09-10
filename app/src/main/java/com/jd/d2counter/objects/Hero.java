@@ -10,70 +10,46 @@ public class Hero implements Parcelable {
     private long type;
     private long image;
     private String name;
-    private boolean banned;
-    private boolean picked;
+    private int status;
 
-    public Hero(long id, String name, long type, long image){
+
+    public Hero(long id, String name, long type, long image, int status) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.image = image;
+        this.status = status;
     }
 
     public long getImage() {
         return image;
     }
 
-    public void setImage(long image) {
-        this.image = image;
-    }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public long getType() {
         return type;
     }
 
-    public void setType(long type) {
-        this.type = type;
+    public int getStatus() {
+        return status;
     }
-
-    public boolean isBanned() {
-        return banned;
-    }
-
-    public void setBanned(boolean banned) {
-        this.banned = banned;
-    }
-
-    public boolean isPicked() {
-        return picked;
-    }
-
-    public void setPicked(boolean picked) {
-        this.picked = picked;
-    }
-
 
     private Hero(Parcel parcel) {
         this.id = parcel.readLong();
         this.name = parcel.readString();
         this.type = parcel.readLong();
         this.image = parcel.readLong();
+        this.status = parcel.readInt();
     }
 
 
@@ -83,6 +59,7 @@ public class Hero implements Parcelable {
         parcel.writeString(name);
         parcel.writeLong(type);
         parcel.writeLong(image);
+        parcel.writeInt(status);
     }
 
     @Override
@@ -103,8 +80,19 @@ public class Hero implements Parcelable {
         }
     };
 
+
+
     public static final int TYPE_AGILITY = 1;
     public static final int TYPE_STRENGHT = 2;
     public static final int TYPE_INTELIGENCE = 3;
 
+    public static final int STATUS_NOTHING = 0;
+    public static final int STATUS_MY_PICK = 1;
+    public static final int STATUS_ENEMY_PICK = 2;
+    public static final int STATUS_MY_BAN = 3;
+    public static final int STATUS_ENEMY_BAN= 4;
+    public static final int STATUS_SUGGESTION_PICK = 5;
+    public static final int STATUS_SUGGESTION_BAN= 6;
+
+    public static final String EXTRA_STATUS_NAME = "status";
 }

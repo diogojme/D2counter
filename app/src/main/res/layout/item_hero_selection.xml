@@ -19,12 +19,13 @@
         android:adjustViewBounds="true"
         android:src="@drawable/alchemist_vert" />
 
-    <ImageView
-        android:id="@+id/image_mask"
-        android:layout_width="72dp"
-        android:layout_height="80dp"
-        android:adjustViewBounds="true"
-        android:src="@drawable/picked"
-        android:visibility="gone" />
+    <TextView
+        android:id="@+id/item_hero_selection_text_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_hero_selection_image"
+        android:text="picked"
+        android:layout_marginLeft="6dp"
+        android:textColor="#fff" />
 
 </RelativeLayout>
