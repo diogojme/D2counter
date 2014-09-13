@@ -133,6 +133,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    public List<Hero> getListTeamPicks() {
+        String sql = "SELECT * FROM " + TABLE_HERO + " WHERE status LIKE 1";
+        List<Hero> list = new ArrayList<Hero>();
+
+        Cursor cursor = database.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Hero hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
+                list.add(hero);
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
+//    public List<Hero> getSuggestPick() {
+//        List<Hero> picks = get
+//
+//        return null;
+//    }
+
 
     public void insertHero() {
         addHero(0, "ABADDON", Hero.TYPE_STRENGHT, R.drawable.abaddon_vert, Hero.STATUS_NOTHING);
