@@ -26,7 +26,9 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
     ViewHolder mHolder;
     DatabaseHelper mDatabase;
     HeroSelectAdapter mAdapter;
+    int mOrder;
     int mStatus;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
         Intent intent = getActivity().getIntent();
         mIdList = intent.getIntExtra(HomeActivity.LIST_SELECTION, 0);
         mStatus = intent.getIntExtra(Hero.EXTRA_STATUS_NAME, -1);
+        mOrder = intent.getIntExtra(Hero.EXTRA_ORDER, 0);
     }
 
     private void initView(View view) {
@@ -58,7 +61,7 @@ public class StrenghtFragment extends Fragment implements HeroSelectAdapter.OnHe
 
     @Override
     public void onHeroClick(Hero hero) {
-        mDatabase.updateHeroStatus(hero.getId(), mStatus);
+        mDatabase.updateHeroStatus(hero.getId(), mStatus, mOrder);
 
         switch (mIdList) {
             case HomeActivity.LIST_TEAM_PICK:

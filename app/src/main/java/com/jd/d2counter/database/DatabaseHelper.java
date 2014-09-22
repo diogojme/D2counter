@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HERO + " (id long primary key, name TEXT NOT NULL, type int not null, image int not null, status int not null)");
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HERO + " (id long primary key, name TEXT NOT NULL, type int not null, image int not null, status int not null, ordem int not null)");
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HERO_COUNTER + " (id_hero long NOT NULL, id_counter LONG NOT NULL, id_support LONG NOT NULL, position INT NOT NULL)");
     }
 
@@ -70,7 +70,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void addHero(long id, String name, int type, int image, int status) {
-        String sql = "INSERT OR REPLACE INTO " + TABLE_HERO + " (id,name,type,image,status) VALUES('" + id + "','" + name + "','" + type + "','" + image + "','" + status + "')";
+        int ordem = 0;
+        String sql = "INSERT OR REPLACE INTO " + TABLE_HERO + " (id, name, type, image, status, ordem) VALUES('" + id + "','" + name + "','" + type + "','" + image + "','" + status + "','" + ordem + "')";
         database.execSQL(sql);
     }
 
@@ -79,10 +80,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(sql);
     }
 
-    public void updateHeroStatus(long idHero, int status) {
+    public void updateHeroStatus(long idHero, int status, int ordem) {
         String strFilter = "id = " + idHero;
         ContentValues args = new ContentValues();
         args.put("status", status);
+        args.put("ordem", ordem);
         database.update(TABLE_HERO, args, strFilter, null);
     }
 
@@ -92,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = database.rawQuery(selectQuery, new String[]{String.valueOf(idHero)});
 
         if (cursor.moveToFirst()) {
-            hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
+            hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5));
         }
 
         cursor.close();
@@ -100,14 +102,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Hero> getHeroList(int type) {
-        String table[] = {"id", "name", "type", "image", "status"};
+        String table[] = {"id", "name", "type", "image", "status", "ordem"};
         Cursor cursor = database.query(TABLE_HERO, table, "type = " + type, null, null, null, null);
         System.out.println(cursor.getCount());
         List<Hero> list = new ArrayList<Hero>();
 
         if (cursor.moveToFirst()) {
             do {
-                Hero hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
+                Hero hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5));
                 list.add(hero);
             } while (cursor.moveToNext());
         }
@@ -134,14 +136,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Hero> getListTeamPicks() {
-        String sql = "SELECT * FROM " + TABLE_HERO + " WHERE status LIKE 1";
+        String sql = "SELECT * FROM " + TABLE_HERO + " WHERE status LIKE 1 ORDER BY ordem ASC";
         List<Hero> list = new ArrayList<Hero>();
 
         Cursor cursor = database.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
             do {
-                Hero hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
+                Hero hero = new Hero(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5));
                 list.add(hero);
             } while (cursor.moveToNext());
         }

@@ -11,13 +11,15 @@ public class Hero implements Parcelable {
     private long image;
     private String name;
     private int status;
+    private int order;
 
 
-    public Hero(long id, String name, long type, long image, int status) {
+    public Hero(long id, String name, long type, long image, int status, int order) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.image = image;
+        this.order = order;
         this.status = status;
     }
 
@@ -30,7 +32,7 @@ public class Hero implements Parcelable {
         return id;
     }
 
-
+    public int getOrder() { return order; }
 
     public String getName() {
         return name;
@@ -60,6 +62,7 @@ public class Hero implements Parcelable {
         parcel.writeLong(type);
         parcel.writeLong(image);
         parcel.writeInt(status);
+        parcel.writeInt(order);
     }
 
     @Override
@@ -94,5 +97,6 @@ public class Hero implements Parcelable {
     public static final int STATUS_SUGGESTION_PICK = 5;
     public static final int STATUS_SUGGESTION_BAN= 6;
 
+    public static final String EXTRA_ORDER = "order";
     public static final String EXTRA_STATUS_NAME = "status";
 }

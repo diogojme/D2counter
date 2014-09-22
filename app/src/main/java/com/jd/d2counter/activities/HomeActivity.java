@@ -42,7 +42,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
 
         if (mTeamPickList.size() > 0) {
             for (int i = 0; i < mTeamPickList.size(); i++) {
-                switch (i) {
+                switch (mTeamPickList.get(i).getOrder()) {
                     case 0:
                         mHolder.teamPick01.setImageResource((int) mTeamPickList.get(i).getImage());
                         break;
@@ -248,38 +248,43 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view == mHolder.teamPick01) {
             if (mTeamPickList.size() > 0) {
-                mTeamPickList.remove(0);
                 mHolder.teamPick01.setImageResource(R.color.green);
+                mDatabase.updateHeroStatus(mTeamPickList.get(0).getId(), Hero.STATUS_NOTHING, 0);
+                mTeamPickList.remove(0);
             } else {
-                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK));
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK).putExtra(Hero.EXTRA_ORDER, 0));
             }
         } else if (view == mHolder.teamPick02) {
             if (mTeamPickList.size() > 1) {
-                mTeamPickList.remove(1);
                 mHolder.teamPick02.setImageResource(R.color.green);
+                mDatabase.updateHeroStatus(mTeamPickList.get(1).getId(), Hero.STATUS_NOTHING, 1);
+                mTeamPickList.remove(1);
             } else {
-                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK));
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK).putExtra(Hero.EXTRA_ORDER, 1));
             }
         } else if (view == mHolder.teamPick03) {
             if (mTeamPickList.size() > 2) {
-                mTeamPickList.remove(2);
                 mHolder.teamPick03.setImageResource(R.color.green);
+                mDatabase.updateHeroStatus(mTeamPickList.get(2).getId(), Hero.STATUS_NOTHING, 2);
+                mTeamPickList.remove(2);
             } else {
-                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK));
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK).putExtra(Hero.EXTRA_ORDER, 2));
             }
         } else if (view == mHolder.teamPick04) {
             if (mTeamPickList.size() > 3) {
-                mTeamPickList.remove(3);
                 mHolder.teamPick04.setImageResource(R.color.green);
+                mDatabase.updateHeroStatus(mTeamPickList.get(3).getId(), Hero.STATUS_NOTHING, 3);
+                mTeamPickList.remove(3);
             } else {
-                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK));
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK).putExtra(Hero.EXTRA_ORDER, 3));
             }
         } else if (view == mHolder.teamPick05) {
             if (mTeamPickList.size() > 4) {
-                mTeamPickList.remove(4);
                 mHolder.teamPick05.setImageResource(R.color.green);
+                mDatabase.updateHeroStatus(mTeamPickList.get(4).getId(), Hero.STATUS_NOTHING, 4);
+                mTeamPickList.remove(4);
             } else {
-                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK));
+                startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_TEAM_PICK).putExtra(Hero.EXTRA_STATUS_NAME, Hero.STATUS_MY_PICK).putExtra(Hero.EXTRA_ORDER, 4));
             }
         } else if (view == mHolder.enemyPick01) {
             startActivity(new Intent(this, HeroSelectActivity.class).putExtra(LIST_SELECTION, LIST_ENEMY_PICK));
