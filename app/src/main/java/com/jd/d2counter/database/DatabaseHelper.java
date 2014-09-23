@@ -135,8 +135,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public List<Hero> getListTeamPicks() {
-        String sql = "SELECT * FROM " + TABLE_HERO + " WHERE status LIKE 1 ORDER BY ordem ASC";
+    public List<Hero> getListPicks(int status) {
+        String sql = "SELECT * FROM " + TABLE_HERO + " WHERE status LIKE " + status + " ORDER BY ordem ASC";
         List<Hero> list = new ArrayList<Hero>();
 
         Cursor cursor = database.rawQuery(sql, null);
@@ -149,13 +149,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return list;
     }
-
-//    public List<Hero> getSuggestPick() {
-//        List<Hero> picks = get
-//
-//        return null;
-//    }
-
 
     public void insertHero() {
         addHero(0, "ABADDON", Hero.TYPE_STRENGHT, R.drawable.abaddon_vert, Hero.STATUS_NOTHING);
@@ -343,5 +336,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static String TABLE_HERO = "hero";
     private static String TABLE_HERO_COUNTER = "counter";
-
 }
